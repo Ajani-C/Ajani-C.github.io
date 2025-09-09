@@ -10,6 +10,7 @@ I’ve worked on projects that include vulnerability assessments in virtual labs
 
 Beyond my technical skills, I enjoy problem-solving and the continuous learning that come with this field. Cybersecurity is constantly evolving, and I’m motivated to stay ahead by experimenting with new tools, studying real-world threats, and expanding my knowledge through hands-on projects.
 
+
 ## Skills and Tools
 
 Languages and Scripting: Python, C and Bash.
