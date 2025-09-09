@@ -2,18 +2,27 @@
 layout: default
 ---
 
+# About Me
+
+Hi, I’m Ajani Cole, a Computer Science student at Florida International University with a strong interest in cybersecurity. I’m passionate about protecting systems and data through network security, penetration testing, and system hardening.
+
+I’ve worked on projects that include vulnerability assessments in virtual labs, analyzing network traffic with Wireshark, and testing password security. These experiences have helped me build a solid foundation in identifying risks, applying mitigation strategies, and thinking critically about how to secure modern systems.
+
+Beyond my technical skills, I enjoy problem-solving and the continuous learning that come with this field. Cybersecurity is constantly evolving, and I’m motivated to stay ahead by experimenting with new tools, studying real-world threats, and expanding my knowledge through hands-on projects.
+
+## Skills and Tools
+
+Languages and Scripting: Python, C and Bash.
+Familiar Security Tools: ClamAV, Hashcat, John the Ripper, Nmap, Snort, Wazuh and Wireshark.
+
+____________________________________________
+
 Text can be **bold**, _italic_, ~~strikethrough~~ or `keyword`.
 
 [Link to another page](./another-page.html).
 
 
 There should be whitespace between paragraphs. We recommend including a README, or a file with information about your project.
-
-# Header 1
-
-This is a normal paragraph following a header. GitHub is a code hosting platform for version control and collaboration. It lets you and others work together on projects from anywhere.
-
-## Header 2
 
 > This is a blockquote following a header.
 >
