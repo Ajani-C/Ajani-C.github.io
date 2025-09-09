@@ -20,8 +20,11 @@ Familiar Security Tools: ClamAV, Hashcat, John the Ripper, Nmap, Snort, Wazuh an
 # Projects
 
 ### SIEM Deployment and Attack Simulation (Splunk on VM)
+picture of Splunk homepage/dashboard after successful deployment.
 
 For this project, I deployed a Splunk SIEM in a virtual machine environment and configured forwarder agents to collect logs from different systems. Once the SIEM was operational, I simulated attacks (such as brute force login attempts and port scans) to generate realistic security events.
+
+picture of Agent configuration screen (showing connection between forwarder and Splunk).
 
 Using KQL queries, I analyzed the collected logs, detected malicious activity, and created custom dashboards to visualize security alerts.
 
