@@ -12,9 +12,12 @@ Beyond my technical skills, I enjoy problem-solving and the continuous learning 
 
 
 ## Skills and Tools
-
-Languages and Scripting: Python, C and Bash.
-Familiar Security Tools: ClamAV, Hashcat, John the Ripper, Nmap, Snort, Wazuh and Wireshark.
+<dt>Languages and Scripting:</dt>
+<dd>Python, C and Bash.</dd>
+<dt>Familiar Security Tools:</dt>
+<dd>ClamAV, Hashcat, John the Ripper, Nmap, Snort, Wazuh and Wireshark.</dd>
+ 
+ 
 
 
 # Projects
