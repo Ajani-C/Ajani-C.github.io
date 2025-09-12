@@ -24,6 +24,7 @@ Beyond my technical skills, I enjoy problem-solving and the continuous learning 
 
 ### SIEM Deployment and Attack Simulation (Splunk on VM)
 picture of Splunk homepage/dashboard after successful deployment.
+<img src="images/splunk_dashboard.PNG" alt="Project Screenshot" width="600">
 
 For this project, I deployed a Splunk SIEM in a virtual machine environment and configured forwarder agents to collect logs from different systems. Once the SIEM was operational, I simulated attacks (such as brute force login attempts and port scans) to generate realistic security events.
 
