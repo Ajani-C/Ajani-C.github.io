@@ -26,7 +26,7 @@ For this project, I deployed a Splunk SIEM in a virtual machine environment and 
 
 picture of Agent configuration screen (showing connection between forwarder and Splunk).
 
-Using KQL queries, I analyzed the collected logs, detected malicious activity, and created custom dashboards to visualize security alerts.
+I wrote detection queries (in Splunk SPL) to analyze the collected logs, detect malicious activity, and create custom dashboards to visualize security alerts.
 
 This project demonstrated how SIEM solutions help security analysts monitor environments, identify threats, and respond to incidents in real time. It also strengthened my skills in log collection, query writing, and attack detection.
 
