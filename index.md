@@ -23,12 +23,11 @@ Beyond my technical skills, I enjoy problem-solving and the continuous learning 
 # Projects
 
 ### SIEM Deployment and Attack Simulation (Splunk on VM)
-picture of Splunk homepage/dashboard after successful deployment.
 <img src="images/splunk_dashboard.PNG" alt="Project Screenshot" width="600">
 
 For this project, I deployed a Splunk SIEM in a virtual machine environment and configured forwarder agents to collect logs from different systems. Once the SIEM was operational, I simulated attacks (such as brute force login attempts and port scans) to generate realistic security events.
 
-picture of Agent configuration screen (showing connection between forwarder and Splunk).
+<img src="images/plunk_search.PNG" alt="Project Screenshot" width="600">
 
 I wrote detection queries (in Splunk SPL) to analyze the collected logs, detect malicious activity, and create custom dashboards to visualize security alerts.
 
@@ -55,7 +54,7 @@ index=network sourcetype=firewall
 ```
 
 This project demonstrated how SIEM solutions help security analysts monitor environments, identify threats, and respond to incidents in real time. It also strengthened my skills in log collection, query writing, and attack detection.
-
+<img src="images/wireshark.PNG" alt="Project Screenshot" width="600">
 Key Tools: Splunk, Universal Forwarder Agents, VirtualBox/VMware, Kali Linux, Windows/Linux log sources
 Focus Areas: SIEM setup, log collection, attack simulation, KQL queries, security monitoring
 
