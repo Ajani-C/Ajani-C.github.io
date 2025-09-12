@@ -18,6 +18,7 @@ Beyond my technical skills, I enjoy problem-solving and the continuous learning 
 <dd>ClamAV, Hashcat, John the Ripper, Nmap, Snort, Wazuh and Wireshark.</dd>
  
  
+____________________________________________
 
 
 # Projects
@@ -62,7 +63,9 @@ Focus Areas: SIEM setup, log collection, attack simulation, KQL queries, securit
 ### Network Traffic Analysis with Wireshark
 
 For this project, I captured and analyzed network traffic to identify suspicious activity. Using Wireshark, I monitored packets, tracked anomalies, and documented findings such as unusual patterns that could indicate potential attacks.
+
 <img src="images/wireshark.PNG" alt="Project Screenshot" width="600">
+
 This project reinforced my understanding of how network packets reveal system behavior and taught me how to spot possible intrusions through careful analysis.
 
 Key Tools: Wireshark
