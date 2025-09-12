@@ -54,7 +54,7 @@ index=network sourcetype=firewall
 ```
 
 This project demonstrated how SIEM solutions help security analysts monitor environments, identify threats, and respond to incidents in real time. It also strengthened my skills in log collection, query writing, and attack detection.
-<img src="images/wireshark.PNG" alt="Project Screenshot" width="600">
+
 Key Tools: Splunk, Universal Forwarder Agents, VirtualBox/VMware, Kali Linux, Windows/Linux log sources
 Focus Areas: SIEM setup, log collection, attack simulation, KQL queries, security monitoring
 
@@ -62,7 +62,7 @@ Focus Areas: SIEM setup, log collection, attack simulation, KQL queries, securit
 ### Network Traffic Analysis with Wireshark
 
 For this project, I captured and analyzed network traffic to identify suspicious activity. Using Wireshark, I monitored packets, tracked anomalies, and documented findings such as unusual patterns that could indicate potential attacks.
-
+<img src="images/wireshark.PNG" alt="Project Screenshot" width="600">
 This project reinforced my understanding of how network packets reveal system behavior and taught me how to spot possible intrusions through careful analysis.
 
 Key Tools: Wireshark
