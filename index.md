@@ -28,6 +28,28 @@ picture of Agent configuration screen (showing connection between forwarder and 
 
 I wrote detection queries (in Splunk SPL) to analyze the collected logs, detect malicious activity, and create custom dashboards to visualize security alerts.
 
+```py
+#Brute Force Login Attempts (failed logins by same user/IP):
+index=security sourcetype=auth 
+action="failure" 
+| stats count by src, user 
+| where count > 10
+
+```
+```py
+#Successful Login After Failures (possible brute force success):
+index=security sourcetype=auth 
+| transaction user maxspan=5m 
+| search failure failure failure success
+```
+
+```py
+#Port Scanning Activity (many ports hit by same IP):
+index=network sourcetype=firewall 
+| stats dc(dest_port) as unique_ports by src_ip 
+| where unique_ports > 20
+```
+
 This project demonstrated how SIEM solutions help security analysts monitor environments, identify threats, and respond to incidents in real time. It also strengthened my skills in log collection, query writing, and attack detection.
 
 Key Tools: Splunk, Universal Forwarder Agents, VirtualBox/VMware, Kali Linux, Windows/Linux log sources
