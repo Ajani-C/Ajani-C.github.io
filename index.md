@@ -77,5 +77,6 @@ In this project, I tested the strength of different passwords using Hashcat and 
 
 I concluded the project by developing guidelines for creating stronger passwords and implementing security policies that help organizations protect user credentials.
 
-Key Tools: Hashcat, John the Ripper, Linux CLI
-Focus Areas: Password security, hashing, security policies
+Key Tools: Hashcat, John the Ripper, Linux CLI.
+
+Focus Areas: Password security, hashing, security policies.
