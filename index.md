@@ -13,11 +13,14 @@ Beyond my technical skills, I enjoy problem-solving and the continuous learning 
 
 ## Skills and Tools
 <dt>Languages and Scripting:</dt>
-<dd>Python, C and Bash.</dd>
+<dd>Python, Java, Bash, HTML/CSS.</dd>
 <dt>Familiar Security Tools:</dt>
 <dd>ClamAV, Hashcat, John the Ripper, Nmap, Snort, Wazuh and Wireshark.</dd>
- 
- 
+
+## Certifications
+CompTIA Security+ (Sept 2025) 
+Google: Crash Course on Python (Jan 2024)
+Google: Using Python to Interact with the Operating System (May 2024)
 ____________________________________________
 
 
