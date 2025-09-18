@@ -9,7 +9,7 @@ Hi, I’m Ajani Cole, a Computer Science student at Florida International Univer
 I’ve worked on projects that include vulnerability assessments in virtual labs, analyzing network traffic with Wireshark, and testing password security. These experiences have helped me build a solid foundation in identifying risks, applying mitigation strategies, and thinking critically about how to secure modern systems.
 
 Beyond my technical skills, I enjoy problem-solving and the continuous learning that come with this field. Cybersecurity is constantly evolving, and I’m motivated to stay ahead by experimenting with new tools, studying real-world threats, and expanding my knowledge through hands-on projects.
-
+<br>
 
 ## Skills and Tools
 <dt>Languages and Scripting:</dt>
@@ -19,11 +19,12 @@ Beyond my technical skills, I enjoy problem-solving and the continuous learning 
 <br>
 
 ## Certifications
-CompTIA Security+ (Sept 2025) 
-Google: Crash Course on Python (Jan 2024)
+CompTIA Security+ (Sept 2025)<br> 
+Google: Crash Course on Python (Jan 2024)<br>
 Google: Using Python to Interact with the Operating System (May 2024)
 <br>
-____________________________________________
+
+_________________________________________________
 
 
 # Projects
