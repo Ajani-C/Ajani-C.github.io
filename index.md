@@ -20,7 +20,7 @@ Beyond my technical skills, I enjoy problem-solving and the continuous learning 
 <br>
 
 ## Certifications
-CompTIA Security+ (Sept 2025)<br> 
+CompTIA Security+ (Pending)<br> 
 Google: Crash Course on Python (Jan 2024)<br>
 Google: Using Python to Interact with the Operating System (May 2024)
 <br>
