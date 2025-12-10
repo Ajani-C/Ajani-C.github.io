@@ -89,3 +89,10 @@ I concluded the project by developing guidelines for creating stronger passwords
 Key Tools: Hashcat, John the Ripper, Linux CLI.
 
 Focus Areas: Password security, hashing, security policies.
+
+_________________________________________________
+
+# Organizations
+
+### Code Crunch: A Student-Driven Club for Interdisciplinary Innovation in Technology
+
