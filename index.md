@@ -8,7 +8,7 @@ Hi, I’m Ajani Cole, a Computer Science student at Florida International Univer
 
 I’ve worked on projects that include vulnerability assessments in virtual labs, analyzing network traffic with Wireshark, and testing password security. These experiences have helped me build a solid foundation in identifying risks, applying mitigation strategies, and thinking critically about how to secure modern systems.
 
-Beyond my technical skills, I enjoy problem-solving and the continuous learning that come with this field. Cybersecurity is constantly evolving, and I’m motivated to stay ahead by experimenting with new tools, studying real-world threats, and expanding my knowledge through hands-on projects.
+Beyond my technical skills, I stay active in the cybersecurity and tech community through organizations such as INIT@FIU and Code Crunch. These clubs have given me opportunities to collaborate on hands-on projects, participate in technical workshops, and contribute as a volunteer speaker. Through Code Crunch, I lead Security+ workshops during hackathons, helping students build foundational security knowledge and best practices. Experiences like these strengthen my problem-solving abilities and fuel my commitment to continuous learning in a field that’s always evolving.
 
 <br>
 
