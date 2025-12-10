@@ -104,7 +104,7 @@ Code Crunch is a student organization dedicated to advancing technical skills th
 ## INIT@FIU:
 ### A Community for Innovation, Collaboration, and Technical Growth
 
-
+<img src="images/b57beeef-88ca-4b92-8eb2-c3e3fc0b596d.png" alt="Hackathon Photo" width="600">
 
 INIT@FIU is a student-led organization focused on helping students explore technology, develop new skills, and collaborate on impactful projects. As an active member, I participate in workshops, team builds, and tech-focused events that encourage creativity, problem-solving, and professional development. Being part of INIT@FIU has allowed me to grow alongside students who are passionate about innovation while contributing to a community that values learning, mentorship, and real-world application of technical skills.
 
