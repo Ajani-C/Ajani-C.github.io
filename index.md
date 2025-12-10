@@ -96,3 +96,6 @@ _________________________________________________
 
 ### Code Crunch: A Student-Driven Club for Interdisciplinary Innovation in Technology
 
+<img src="images/cc-presentation.jpg" alt="Hackathon Photo" width="600">
+
+Code Crunch is a student organization dedicated to advancing technical skills through coding workshops, collaborative projects, and hackathon events. As a volunteer speaker, I led a Security+ workshop during a Code Crunch–hosted hackathon, providing participants with practical cybersecurity knowledge, foundational security concepts, and exam preparation guidance. My involvement reflects a commitment to supporting peer learning, contributing to student development, and engaging with the campus tech community.
