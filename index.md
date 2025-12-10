@@ -92,9 +92,10 @@ Focus Areas: Password security, hashing, security policies.
 
 _________________________________________________
 
-# Organizations
+#Organizations
 
-### Code Crunch: A Student-Driven Club for Interdisciplinary Innovation in Technology
+##Code Crunch: 
+###A Student-Driven Club for Interdisciplinary Innovation in Technology
 
 <img src="images/cc_presentation.png" alt="Hackathon Photo" width="600">
 
