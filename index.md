@@ -8,7 +8,7 @@ Hi, I’m Ajani Cole, a Computer Science student at Florida International Univer
 
 I’ve worked on projects that include vulnerability assessments in virtual labs, analyzing network traffic with Wireshark, and testing password security. These experiences have helped me build a solid foundation in identifying risks, applying mitigation strategies, and thinking critically about how to secure modern systems.
 
-Beyond my technical skills, I stay active in the cybersecurity and tech community through organizations such as INIT@FIU and Code Crunch. These clubs have given me opportunities to collaborate on hands-on projects, participate in technical workshops, and contribute as a volunteer speaker. Through Code Crunch, I lead Security+ workshops during hackathons, helping students build foundational security knowledge and best practices. Experiences like these strengthen my problem-solving abilities and fuel my commitment to continuous learning in a field that’s always evolving.
+Beyond my technical skills, I stay active in the cybersecurity and tech community through organizations such as INIT@FIU and Code Crunch. These clubs have given me opportunities to collaborate on hands-on projects, participate in technical workshops, and contribute as a volunteer speaker. Through Code Crunch, I lead Security+ workshops during hackathons, helping students build foundational security knowledge and best practices. 
 
 <br>
 
@@ -99,7 +99,7 @@ _________________________________________________
 
 <img src="images/cc_presentation.png" alt="Hackathon Photo" width="600">
 
-Code Crunch is a student organization dedicated to advancing technical skills through coding workshops, collaborative projects, and hackathon events. As a volunteer speaker, I led a Security+ workshop during a Code Crunch–hosted hackathon, providing participants with practical cybersecurity knowledge, foundational security concepts, and exam preparation guidance. My involvement reflects a commitment to supporting peer learning, contributing to student development, and engaging with the campus tech community.
+Code Crunch is a student organization dedicated to advancing technical skills through coding workshops, collaborative projects, and hackathon events. As a volunteer speaker, I lead Security+ workshops during Code Crunch–hosted hackathons, providing participants with practical cybersecurity knowledge, foundational security concepts, and exam preparation guidance. My involvement reflects a commitment to supporting peer learning, contributing to student development, and engaging with the campus tech community.
 
 ## INIT@FIU:
 ### A Community for Innovation, Collaboration, and Technical Growth
