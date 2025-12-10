@@ -100,3 +100,12 @@ _________________________________________________
 <img src="images/cc_presentation.png" alt="Hackathon Photo" width="600">
 
 Code Crunch is a student organization dedicated to advancing technical skills through coding workshops, collaborative projects, and hackathon events. As a volunteer speaker, I led a Security+ workshop during a Code Crunch–hosted hackathon, providing participants with practical cybersecurity knowledge, foundational security concepts, and exam preparation guidance. My involvement reflects a commitment to supporting peer learning, contributing to student development, and engaging with the campus tech community.
+
+## INIT@FIU:
+### A Community for Innovation, Collaboration, and Technical Growth
+
+
+
+INIT@FIU is a student-led organization focused on helping students explore technology, develop new skills, and collaborate on impactful projects. As an active member, I participate in workshops, team builds, and tech-focused events that encourage creativity, problem-solving, and professional development. Being part of INIT@FIU has allowed me to grow alongside students who are passionate about innovation while contributing to a community that values learning, mentorship, and real-world application of technical skills.
+
+
