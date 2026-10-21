@@ -1,0 +1,1716 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ajani Cole | Cybersecurity Portfolio</title>
+<meta name="description" content="Cybersecurity portfolio of Ajani Cole, a Computer Science student at Florida International University. Try a live SIEM detection lab, a packet analyzer and a password cracker.">
+<meta property="og:title" content="Ajani Cole | Cybersecurity Portfolio">
+<meta property="og:description" content="Cybersecurity portfolio of Ajani Cole, a Computer Science student at Florida International University. Try a live SIEM detection lab, a packet analyzer and a password cracker.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232540E6'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-size='15' font-weight='700' text-anchor='middle' fill='white'%3EAC%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+/* Layout: a wide wordmark opens the page, the live detection console sits beside the intro,
+   and every project row pairs a narrow sticky label column with a wide reading column. */
+:root {
+  --bg: #E9EEF2;
+  --surface: #F6F8FA;
+  --fg: #0F1A25;
+  --muted: #475766;
+  --line: #C4CED8;
+  --accent: #2540E6;
+  --on-accent: #FFFFFF;
+  --crit: #C0283A;
+  --high: #A8520A;
+  --med: #7D6200;
+  --ok: #17744B;
+  --rst-row: #F8E3E5;
+  --dns-row: #E1E8FA;
+  --http-row: #DFF0E6;
+
+  /* The console is a monitor, so it keeps its own dark palette in both themes. */
+  --scr-bg: #0A1118;
+  --scr-bar: #111B26;
+  --scr-fg: #CBD7E2;
+  --scr-dim: #8497A9;
+  --scr-line: #20303E;
+  --scr-crit: #FF6B7A;
+  --scr-high: #FFA14A;
+  --scr-med: #E8C44D;
+  --scr-ok: #55D19A;
+  --scr-blue: #8FA2FF;
+
+  --font: 'Archivo', 'Helvetica Neue', Arial, system-ui, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0B121A;
+    --surface: #121B26;
+    --fg: #E5ECF3;
+    --muted: #9AAABA;
+    --line: #243241;
+    --accent: #8DA0FF;
+    --on-accent: #0B121A;
+    --crit: #FF6B7A;
+    --high: #FFA14A;
+    --med: #E8C44D;
+    --ok: #55D19A;
+    --rst-row: #3A1A22;
+    --dns-row: #1B2747;
+    --http-row: #17342A;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0B121A;
+  --surface: #121B26;
+  --fg: #E5ECF3;
+  --muted: #9AAABA;
+  --line: #243241;
+  --accent: #8DA0FF;
+  --on-accent: #0B121A;
+  --crit: #FF6B7A;
+  --high: #FFA14A;
+  --med: #E8C44D;
+  --ok: #55D19A;
+  --rst-row: #3A1A22;
+  --dns-row: #1B2747;
+  --http-row: #17342A;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[id] { scroll-margin-top: calc(64px + env(safe-area-inset-top, 0px)); }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font);
+  font-size: 17px;
+  line-height: 1.6;
+  font-stretch: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; max-width: 100%; height: auto; }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+button { font: inherit; color: inherit; cursor: pointer; }
+p { margin: 0 0 1em; max-width: 66ch; text-wrap: pretty; }
+h1, h2, h3 { margin: 0; text-wrap: balance; }
+code, pre, kbd { font-family: var(--mono); }
+
+.wrap {
+  max-width: 1240px;
+  margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.band { padding-block: clamp(56px, 9vw, 112px); border-top: 1px solid var(--line); }
+.h2 {
+  font-size: clamp(1.9rem, 4.2vw, 3rem);
+  font-weight: 780;
+  font-stretch: 118%;
+  letter-spacing: -0.015em;
+  line-height: 1.05;
+}
+.h3 { font-size: 1.35rem; font-weight: 720; font-stretch: 108%; line-height: 1.2; letter-spacing: -0.005em; }
+.muted { color: var(--muted); }
+.small { font-size: 0.9rem; }
+
+/* ---------- Header ---------- */
+.site-head {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 20;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+.head-row { display: flex; align-items: center; gap: 16px; min-height: 56px; }
+.nav { display: flex; gap: 4px; flex: 1; min-width: 0; overflow-x: auto; scrollbar-width: none; }
+.nav::-webkit-scrollbar { display: none; }
+.nav a {
+  color: var(--fg);
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  white-space: nowrap;
+  font-weight: 560;
+  font-size: 0.95rem;
+}
+.nav a:hover { background: var(--surface); }
+.theme-btn {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 6px;
+  padding: 7px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 560;
+}
+.theme-btn:hover { border-color: var(--accent); }
+.theme-btn svg { width: 16px; height: 16px; }
+
+/* ---------- Hero ---------- */
+.hero { padding-block: clamp(40px, 6vw, 80px) clamp(64px, 9vw, 112px); }
+.name {
+  font-size: clamp(2.9rem, 12.2vw, 9.2rem);
+  font-weight: 830;
+  font-stretch: 125%;
+  line-height: 0.9;
+  letter-spacing: -0.035em;
+  margin-bottom: clamp(36px, 6vw, 72px);
+}
+.hero-grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(32px, 5vw, 64px); align-items: start; }
+.hero-copy .role { font-size: 1.3rem; line-height: 1.35; font-weight: 600; font-stretch: 106%; max-width: 24ch; margin-bottom: 24px; }
+.hero-copy p { color: var(--muted); }
+.hero-copy .prompt { color: var(--fg); }
+.btn-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
+.btn {
+  display: inline-block;
+  text-decoration: none;
+  padding: 11px 18px;
+  border-radius: 6px;
+  border: 1px solid var(--fg);
+  font-weight: 640;
+  background: transparent;
+  color: var(--fg);
+}
+.btn:hover { background: var(--surface); text-decoration: none; }
+.btn.primary { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+.btn.primary:hover { filter: brightness(1.08); background: var(--accent); }
+
+/* ---------- Detection console ---------- */
+.console {
+  background: var(--scr-bg);
+  color: var(--scr-fg);
+  border: 1px solid var(--scr-line);
+  border-radius: 12px;
+  overflow: hidden;
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.5;
+  min-width: 0;
+}
+.console button { color: inherit; }
+.c-top { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 10px 14px; background: var(--scr-bar); border-bottom: 1px solid var(--scr-line); }
+.c-title { font-weight: 700; display: flex; align-items: center; gap: 8px; margin-right: auto; }
+.c-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--scr-ok); box-shadow: 0 0 0 3px rgba(85, 209, 154, 0.2); }
+.c-dot.off { background: var(--scr-dim); box-shadow: none; }
+.c-stat { color: var(--scr-dim); }
+.c-stat b { color: var(--scr-fg); font-weight: 700; font-variant-numeric: tabular-nums; }
+.c-mini { background: transparent; border: 1px solid var(--scr-line); border-radius: 4px; padding: 3px 9px; font-size: 12px; }
+.c-mini:hover { border-color: var(--scr-blue); }
+.c-main { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); }
+.c-pane { min-width: 0; display: flex; flex-direction: column; }
+.c-pane + .c-pane { border-left: 1px solid var(--scr-line); }
+.c-head { padding: 8px 14px; color: var(--scr-dim); border-bottom: 1px solid var(--scr-line); display: flex; justify-content: space-between; gap: 8px; }
+.stream { list-style: none; margin: 0; padding: 0; height: 290px; overflow: hidden; }
+.stream li { display: flex; gap: 8px; padding: 2px 14px; white-space: nowrap; overflow: hidden; }
+.stream li > span { flex: none; }
+.stream li > span.d { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.stream .t { color: var(--scr-dim); }
+.stream .k { width: 4ch; color: var(--scr-blue); }
+.stream .r { width: 7ch; }
+.stream .bad { color: var(--scr-high); }
+.stream .good { color: var(--scr-ok); }
+.stream .deny { color: var(--scr-med); }
+.stream.focus li:not(.match) { opacity: 0.32; }
+.stream li.match { background: rgba(143, 162, 255, 0.14); }
+.alerts { list-style: none; margin: 0; padding: 0; height: 290px; overflow-y: auto; }
+.alerts li { border-bottom: 1px solid var(--scr-line); }
+.alert-btn { display: grid; gap: 4px; width: 100%; padding: 10px 14px; text-align: left; background: none; border: 0; font-family: inherit; font-size: inherit; }
+.alert-btn:hover { background: var(--scr-bar); }
+.alert-btn.note { cursor: default; color: var(--scr-fg); }
+.alert-btn.note:hover { background: none; }
+.alert-btn[aria-pressed="true"] { background: var(--scr-bar); box-shadow: inset 3px 0 0 var(--scr-blue); }
+.alert-top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.sev { border: 1px solid currentColor; border-radius: 3px; padding: 0 6px; font-weight: 700; font-size: 11px; }
+.sev.critical { color: var(--scr-crit); }
+.sev.high { color: var(--scr-high); }
+.sev.medium { color: var(--scr-med); }
+.sev.note { color: var(--scr-dim); }
+.alert-title { font-weight: 700; font-family: var(--font); font-size: 14.5px; }
+.alert-time { margin-left: auto; color: var(--scr-dim); font-variant-numeric: tabular-nums; }
+.alert-detail { color: var(--scr-fg); white-space: normal; font-family: var(--font); font-size: 13.5px; line-height: 1.45; }
+.alert-hint { color: var(--scr-dim); font-size: 11.5px; }
+.empty-alerts { padding: 18px 14px; color: var(--scr-dim); font-family: var(--font); font-size: 14px; white-space: normal; }
+.alerts li.is-new .alert-btn { animation: flash 1.4s ease-out; }
+@keyframes flash { from { background: rgba(255, 161, 74, 0.28); } to { background: transparent; } }
+@media (prefers-reduced-motion: reduce) { .alerts li.is-new .alert-btn { animation: none; } }
+
+.c-controls { border-top: 1px solid var(--scr-line); padding: 14px; display: grid; gap: 14px; }
+.attacks { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.atk {
+  text-align: left;
+  display: grid;
+  gap: 2px;
+  background: var(--scr-bar);
+  border: 1px solid var(--scr-line);
+  border-radius: 6px;
+  padding: 9px 11px;
+  font-family: var(--font);
+}
+.atk:hover:not(:disabled) { border-color: var(--scr-blue); }
+.atk:disabled { opacity: 0.55; cursor: progress; }
+.atk-name { font-weight: 700; font-size: 14.5px; color: var(--scr-fg); }
+.atk-note { font-size: 12.5px; color: var(--scr-dim); line-height: 1.35; }
+.sliders { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 24px; }
+.slider { display: grid; gap: 4px; font-family: var(--font); font-size: 13.5px; }
+.slider-top { display: flex; justify-content: space-between; gap: 8px; }
+.slider output { font-family: var(--mono); font-weight: 700; color: var(--scr-blue); }
+.slider input[type="range"] { width: 100%; accent-color: var(--scr-blue); }
+.rules { border-top: 1px solid var(--scr-line); }
+.rules summary { padding: 10px 14px; cursor: pointer; color: var(--scr-fg); font-family: var(--font); font-size: 13.5px; font-weight: 600; }
+.rules summary:hover { background: var(--scr-bar); }
+.rules-body { padding: 4px 14px 16px; display: grid; gap: 12px; }
+.tune-actions { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; padding-top: 4px; }
+.rule { background: var(--scr-bar); border: 1px solid var(--scr-line); border-radius: 6px; padding: 10px 12px; }
+.rule-name { font-family: var(--font); font-weight: 700; font-size: 13px; margin-bottom: 4px; color: var(--scr-fg); }
+.rule pre { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; color: var(--scr-blue); font-size: 12px; }
+.rule.live { border-color: var(--scr-high); }
+
+/* ---------- About ---------- */
+.split { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(20px, 4vw, 48px); }
+.about-text p { font-size: 1.12rem; }
+
+/* ---------- Labs (tabs) ---------- */
+.lab-intro { max-width: 62ch; color: var(--muted); margin-top: 14px; }
+.tabs { display: flex; gap: 6px; margin-top: 28px; border-bottom: 1px solid var(--line); overflow-x: auto; scrollbar-width: none; }
+.tab {
+  background: none;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  padding: 10px 16px;
+  font-weight: 660;
+  font-stretch: 106%;
+  margin-bottom: -1px;
+  white-space: nowrap;
+  color: var(--muted);
+}
+.tab:hover { color: var(--fg); }
+.tab[aria-selected="true"] { color: var(--fg); border-bottom-color: var(--accent); }
+.panel { padding-top: 24px; }
+
+.pk-grid { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: 24px; align-items: start; }
+.filter-bar { display: flex; flex-wrap: wrap; gap: 8px; }
+.filter-bar label { flex: 1 1 100%; font-weight: 600; font-size: 0.95rem; }
+.filter-in {
+  flex: 1 1 260px;
+  min-width: 0;
+  font-family: var(--mono);
+  font-size: 14px;
+  padding: 10px 12px;
+  border: 2px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--fg);
+}
+.filter-in.valid { border-color: var(--ok); }
+.filter-in.invalid { border-color: var(--crit); }
+.ghost { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 9px 14px; font-weight: 600; }
+.ghost:hover { border-color: var(--accent); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.chip { background: transparent; border: 1px solid var(--line); border-radius: 999px; padding: 3px 11px; font-family: var(--mono); font-size: 12.5px; }
+.chip:hover { border-color: var(--accent); color: var(--accent); }
+.filter-msg { margin: 8px 0 0; font-size: 0.92rem; min-height: 1.5em; }
+.filter-msg.err { color: var(--crit); }
+.pk-status { font-size: 0.92rem; color: var(--muted); margin: 10px 0 8px; }
+.pk-wrap { border: 1px solid var(--line); border-radius: 6px; background: var(--surface); overflow: auto; max-height: 300px; }
+.pk-table { border-collapse: collapse; width: 100%; font-family: var(--mono); font-size: 12.5px; white-space: nowrap; }
+.pk-table th { position: sticky; top: 0; background: var(--bg); text-align: left; font-weight: 700; padding: 6px 10px; border-bottom: 1px solid var(--line); z-index: 1; }
+.pk-table td { padding: 3px 10px; }
+.pk-table tbody tr { cursor: pointer; }
+.pk-table tbody tr:hover { outline: 1px solid var(--accent); outline-offset: -1px; }
+.pk-table tbody tr[aria-selected="true"] { background: var(--accent); color: var(--on-accent); }
+.pk-table tr.k-rst td { background: var(--rst-row); }
+.pk-table tr.k-dns td { background: var(--dns-row); }
+.pk-table tr.k-http td { background: var(--http-row); }
+.pk-table tbody tr[aria-selected="true"] td { background: var(--accent); }
+.pk-table td.info { max-width: 46ch; overflow: hidden; text-overflow: ellipsis; }
+.pk-detail { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; margin-top: 12px; }
+.pk-box { border: 1px solid var(--line); border-radius: 6px; background: var(--surface); padding: 10px 12px; min-height: 150px; max-height: 260px; overflow: auto; font-size: 13px; }
+.pk-box h4 { margin: 0 0 6px; font-size: 0.9rem; font-weight: 700; }
+.pk-box details { margin-bottom: 4px; }
+.pk-box summary { cursor: pointer; font-weight: 600; }
+.pk-box dl { margin: 4px 0 4px 16px; font-family: var(--mono); font-size: 12px; display: grid; grid-template-columns: max-content 1fr; gap: 0 12px; }
+.pk-box dt { color: var(--muted); }
+.pk-box dd { margin: 0; overflow-wrap: anywhere; }
+.pk-box pre { margin: 0; font-size: 12px; line-height: 1.5; white-space: pre; }
+.missions { display: grid; gap: 14px; }
+.mission { border: 1px solid var(--line); border-radius: 8px; padding: 14px; background: var(--surface); }
+.mission h4 { margin: 0 0 4px; font-size: 1rem; font-weight: 700; }
+.mission p { font-size: 0.92rem; margin-bottom: 10px; color: var(--muted); }
+.mission code { font-size: 12px; display: block; margin-bottom: 10px; overflow-wrap: anywhere; color: var(--fg); }
+.finding { margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--line); font-size: 0.92rem; }
+.finding p { color: var(--fg); margin: 0; }
+
+/* ---------- Password lab ---------- */
+.pw-grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 28px; align-items: start; }
+.pw-field { display: flex; flex-wrap: wrap; gap: 8px; }
+.pw-field label.lbl { flex: 1 1 100%; font-weight: 600; }
+.pw-in { flex: 1 1 260px; min-width: 0; font-family: var(--mono); font-size: 20px; padding: 12px 14px; border: 2px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--fg); }
+.pw-in:focus-visible { border-color: var(--accent); }
+.pw-show { display: flex; align-items: center; gap: 8px; font-size: 0.95rem; margin-top: 8px; }
+.meter { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 18px 0 6px; }
+.meter i { height: 8px; border-radius: 2px; background: var(--line); }
+.meter.l1 i:nth-child(-n+1) { background: var(--crit); }
+.meter.l2 i:nth-child(-n+2) { background: var(--high); }
+.meter.l3 i:nth-child(-n+3) { background: var(--med); }
+.meter.l4 i { background: var(--ok); }
+.verdict { font-weight: 760; font-stretch: 112%; font-size: 1.5rem; }
+.verdict-note { margin-top: 4px; color: var(--muted); font-size: 0.95rem; }
+.crack-rows { display: grid; gap: 14px; margin-top: 20px; }
+.crack-row .lbl2 { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-weight: 600; font-size: 0.95rem; }
+.crack-row .lbl2 span:last-child { font-variant-numeric: tabular-nums; }
+.crack-row .note { font-size: 0.85rem; color: var(--muted); }
+.bar { height: 6px; background: var(--line); border-radius: 3px; margin: 6px 0 4px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--accent); border-radius: 3px; }
+.attack-box { border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 16px; }
+.attack-box h4 { margin: 0 0 8px; font-size: 1rem; font-weight: 700; }
+.hash { font-family: var(--mono); font-size: 12px; overflow-wrap: anywhere; color: var(--muted); margin: 6px 0 12px; }
+.attack-result { font-weight: 600; margin: 0 0 8px; }
+.attack-result.cracked { color: var(--crit); }
+.attack-result.safe { color: var(--ok); }
+.attack-box .small { color: var(--muted); }
+
+/* ---------- Projects ---------- */
+.project { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(20px, 4vw, 48px); padding-block: clamp(32px, 5vw, 52px); border-top: 1px solid var(--line); }
+.project:first-of-type { border-top: 0; padding-top: 0; }
+.project-side { align-self: start; position: sticky; top: calc(72px + env(safe-area-inset-top, 0px)); }
+.meta { margin: 16px 0 0; display: grid; gap: 10px; font-size: 0.93rem; }
+.meta dt { font-weight: 700; }
+.meta dd { margin: 0; color: var(--muted); }
+.project-main figure { margin: 0 0 32px; }
+.project-main figure img, .shot { border: 1px solid var(--line); border-radius: 6px; width: 100%; }
+figcaption { font-size: 0.88rem; color: var(--muted); margin-top: 8px; }
+.try { margin-top: 18px; }
+.query { margin: 0 0 20px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); overflow: hidden; }
+.query-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 8px 12px; border-bottom: 1px solid var(--line); font-weight: 600; font-size: 0.93rem; }
+.query pre { margin: 0; padding: 12px; overflow-x: auto; font-size: 13px; line-height: 1.55; }
+.copy { background: transparent; border: 1px solid var(--line); border-radius: 4px; padding: 2px 10px; font-size: 0.85rem; font-weight: 600; }
+.copy:hover { border-color: var(--accent); }
+
+/* ---------- Skills, certifications, community ---------- */
+.skill-list { margin: 0; display: grid; gap: 0; }
+.skill-list > div { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 16px; padding: 18px 0; border-top: 1px solid var(--line); }
+.skill-list > div:first-child { border-top: 0; padding-top: 0; }
+.skill-list dt { font-weight: 700; font-stretch: 106%; }
+.skill-list dd { margin: 0; font-size: 1.1rem; }
+.cert-shots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(20px, 3vw, 40px); margin-bottom: clamp(32px, 5vw, 56px); }
+.cert-shots figure { margin: 0; }
+.cert-shots .shot { border: 1px solid var(--line); border-radius: 6px; width: 100%; }
+.cert-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.cert-list li { padding: 16px 0; border-top: 1px solid var(--line); }
+.cert-list.cols { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 clamp(24px, 4vw, 56px); }
+.cert-list .nm { font-weight: 700; font-size: 1.1rem; font-stretch: 106%; }
+.cert-list .dt { color: var(--muted); font-size: 0.95rem; }
+.org { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(20px, 4vw, 48px); padding-block: clamp(28px, 4vw, 44px); border-top: 1px solid var(--line); align-items: start; }
+.org:first-of-type { border-top: 0; padding-top: 0; }
+.org figure { margin: 0; }
+.org img { border: 1px solid var(--line); border-radius: 6px; width: 100%; }
+.org .tag { font-weight: 600; color: var(--muted); margin: 6px 0 14px; max-width: 40ch; }
+
+.foot { border-top: 1px solid var(--line); padding-block: 36px; color: var(--muted); font-size: 0.95rem; }
+.foot-row { display: flex; flex-wrap: wrap; gap: 12px 28px; justify-content: space-between; align-items: center; }
+.foot a { font-weight: 600; }
+.skip { position: absolute; left: -999px; top: 0; background: var(--accent); color: var(--on-accent); padding: 8px 14px; z-index: 50; border-radius: 0 0 6px 0; }
+.skip:focus { left: 0; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1000px) {
+  .hero-grid, .pk-grid, .pw-grid { grid-template-columns: minmax(0, 1fr); }
+  .attacks { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .split, .project, .cert-shots, .cert-list.cols, .org, .skill-list > div { grid-template-columns: minmax(0, 1fr); }
+  .project-side { position: static; }
+  .c-main { grid-template-columns: minmax(0, 1fr); }
+  .c-pane + .c-pane { border-left: 0; border-top: 1px solid var(--scr-line); }
+  .stream, .alerts { height: 240px; }
+  .sliders { grid-template-columns: minmax(0, 1fr); }
+  .pk-detail { grid-template-columns: minmax(0, 1fr); }
+  body { font-size: 16.5px; }
+}
+
+</style>
+</head>
+<body>
+<a class="skip" href="#about">Skip to content</a>
+
+<header class="site-head">
+  <div class="wrap head-row">
+    <nav class="nav" aria-label="Sections">
+      <a href="#lab">Live lab</a>
+      <a href="#about">About</a>
+      <a href="#labs">More labs</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#community">Community</a>
+    </nav>
+    <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch between light and dark theme">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 1.75a6.25 6.25 0 0 1 0 12.5z" fill="currentColor"/></svg>
+      <span id="themeLabel">Theme</span>
+    </button>
+  </div>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="name">
+    <div class="wrap">
+      <h1 class="name" id="name">Ajani Cole</h1>
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="role">Computer Science student at Florida International University, focused on cybersecurity.</p>
+          <p class="prompt">Launch an attack in the console and see whether the detection rules from my SIEM project catch it. Open the rules drawer to change the thresholds and see what slips through.</p>
+          <div class="btn-row">
+            <a class="btn primary" href="#projects">See the projects</a>
+            <a class="btn" href="https://github.com/Ajani-C" rel="noopener">GitHub</a>
+          </div>
+        </div>
+
+        <section class="console" id="lab" aria-label="Live detection lab">
+          <div class="c-top">
+            <div class="c-title"><span class="c-dot" id="liveDot" aria-hidden="true"></span><span>detection-lab</span><span class="c-stat">simulated traffic</span></div>
+            <span class="c-stat">Alerts <b id="alCount">0</b></span>
+          </div>
+          <div class="c-main">
+            <div class="c-pane">
+              <div class="c-head"><span>Log stream</span><span>newest first</span></div>
+              <ul class="stream" id="stream" aria-label="Simulated log stream"></ul>
+            </div>
+            <div class="c-pane">
+              <div class="c-head"><span>Alerts</span><span id="alertHint">select one to highlight its logs</span></div>
+              <ul class="alerts" id="alerts" aria-live="polite"></ul>
+            </div>
+          </div>
+          <div class="c-controls">
+            <div class="attacks" role="group" aria-label="Launch a simulated attack">
+              <button class="atk" type="button" data-attack="brute"><span class="atk-name">Brute force</span><span class="atk-note">18 failed logins</span></button>
+              <button class="atk" type="button" data-attack="breakin"><span class="atk-name">Break-in</span><span class="atk-note">Failures, then a success</span></button>
+              <button class="atk" type="button" data-attack="scan"><span class="atk-name">Port scan</span><span class="atk-note">40 ports in two seconds</span></button>
+              <button class="atk" type="button" data-attack="forgot"><span class="atk-name">Forgot password</span><span class="atk-note">Three typos, then success</span></button>
+            </div>
+          </div>
+          <details class="rules">
+            <summary>Tune the rules and see what slips through</summary>
+            <div class="rules-body">
+              <div class="sliders">
+                <div class="slider">
+                  <div class="slider-top"><label for="thFail">Alert after this many failed logins</label><output id="thFailOut" for="thFail">10</output></div>
+                  <input id="thFail" type="range" min="3" max="30" value="10">
+                </div>
+                <div class="slider">
+                  <div class="slider-top"><label for="thPorts">Alert after this many unique ports</label><output id="thPortsOut" for="thPorts">20</output></div>
+                  <input id="thPorts" type="range" min="5" max="60" value="20">
+                </div>
+              </div>
+              <div class="rule" data-rule="brute"><div class="rule-name">Failed logins from the same address and user</div><pre id="spl1"></pre></div>
+              <div class="rule" data-rule="seq"><div class="rule-name">Success after repeated failures</div><pre id="spl2"></pre></div>
+              <div class="rule" data-rule="scan"><div class="rule-name">Many ports hit by one address</div><pre id="spl3"></pre></div>
+              <div class="tune-actions">
+                <button class="c-mini" id="pauseBtn" type="button" aria-pressed="false">Pause background traffic</button>
+                <button class="c-mini" id="resetBtn" type="button">Reset</button>
+                <span class="c-stat">Events <b id="evCount">0</b></span>
+              </div>
+            </div>
+          </details>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="about" aria-labelledby="about-h">
+    <div class="wrap split">
+      <h2 class="h2" id="about-h">About</h2>
+      <div class="about-text">
+        <p>Hi, I’m Ajani Cole, a Computer Science student at Florida International University with a strong interest in cybersecurity. I’m passionate about protecting systems and data through network security, penetration testing, and system hardening.</p>
+        <p>I’ve worked on projects that include vulnerability assessments in virtual labs, analyzing network traffic with Wireshark, and testing password security. These experiences have helped me build a solid foundation in identifying risks, applying mitigation strategies, and thinking critically about how to secure modern systems.</p>
+        <p>Beyond my technical skills, I stay active in the cybersecurity and tech community through organizations such as INIT@FIU and Code Crunch. These clubs have given me opportunities to collaborate on hands-on projects, participate in technical workshops, and contribute as a volunteer speaker. Through Code Crunch, I lead Security+ workshops during hackathons, helping students build foundational security knowledge and best practices.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="labs" aria-labelledby="labs-h">
+    <div class="wrap">
+      <h2 class="h2" id="labs-h">More labs</h2>
+      <p class="lab-intro">Each lab matches one of my projects below. They run entirely in your browser, and nothing you type is sent anywhere.</p>
+
+      <div class="tabs" role="tablist" aria-label="Labs">
+        <button class="tab" role="tab" id="tab-packets" aria-controls="panel-packets" aria-selected="true" type="button">Packet analyzer</button>
+        <button class="tab" role="tab" id="tab-passwords" aria-controls="panel-passwords" aria-selected="false" tabindex="-1" type="button">Password cracking</button>
+      </div>
+
+      <div class="panel" role="tabpanel" id="panel-packets" aria-labelledby="tab-packets">
+        <div class="pk-grid">
+          <div>
+            <div class="filter-bar">
+              <label for="pkFilter">Display filter</label>
+              <input id="pkFilter" class="filter-in" type="text" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="ip.addr == 192.168.1.66">
+              <button class="ghost" id="pkClear" type="button">Clear</button>
+            </div>
+            <div class="chips" role="group" aria-label="Example filters">
+              <button class="chip" type="button" data-filter="dns">dns</button>
+              <button class="chip" type="button" data-filter="http">http</button>
+              <button class="chip" type="button" data-filter="tcp.port == 22">tcp.port == 22</button>
+              <button class="chip" type="button" data-filter="ip.addr == 192.168.1.20">ip.addr == 192.168.1.20</button>
+              <button class="chip" type="button" data-filter="icmp || dns">icmp || dns</button>
+            </div>
+            <p class="filter-msg" id="pkMsg" role="status"></p>
+            <p class="pk-status" id="pkStatus"></p>
+            <div class="pk-wrap" id="pkWrap" tabindex="0" role="region" aria-label="Captured packets. Use the up and down arrow keys to select a packet.">
+              <table class="pk-table">
+                <thead><tr><th>No.</th><th>Time</th><th>Source</th><th>Destination</th><th>Protocol</th><th>Length</th><th>Info</th></tr></thead>
+                <tbody id="pkBody"></tbody>
+              </table>
+            </div>
+            <div class="pk-detail">
+              <div class="pk-box" id="pkTree" aria-label="Packet details"></div>
+              <div class="pk-box" id="pkHex" aria-label="Packet bytes"></div>
+            </div>
+          </div>
+
+          <div class="missions" aria-label="Guided investigation">
+            <div class="mission" data-filter="tcp.flags.syn == 1 &amp;&amp; tcp.flags.ack == 0">
+              <h4>Find the scanner</h4>
+              <p>A SYN scan sends connection requests to many ports and walks away. Show only packets that start a connection and have not been acknowledged.</p>
+              <code>tcp.flags.syn == 1 &amp;&amp; tcp.flags.ack == 0</code>
+              <button class="ghost" type="button" data-apply>Apply filter</button>
+              <div class="finding" hidden><p>One address, 192.168.1.66, sends every probe from the same source port to dozens of different ports on 192.168.1.50. A normal client opens a few connections to a few ports.</p></div>
+            </div>
+            <div class="mission" data-filter="tcp.flags.syn == 1 &amp;&amp; tcp.flags.ack == 1 &amp;&amp; ip.dst == 192.168.1.66">
+              <h4>Which ports are open?</h4>
+              <p>Open ports answer a SYN with SYN/ACK. Closed ports answer with a reset. Show only the SYN/ACK replies sent back to the scanner.</p>
+              <code>tcp.flags.syn == 1 &amp;&amp; tcp.flags.ack == 1 &amp;&amp; ip.dst == 192.168.1.66</code>
+              <button class="ghost" type="button" data-apply>Apply filter</button>
+              <div class="finding" hidden><p>Ports 22, 80 and 3306 answered: SSH, a web server and MySQL on one host. The scanner then sent a reset to each one, so the handshake never completed. That is a half-open scan.</p></div>
+            </div>
+            <div class="mission" data-filter="frame contains &quot;password&quot;">
+              <h4>Spot a credential leak</h4>
+              <p>Plain HTTP sends everything as readable text. Search the capture for the word password.</p>
+              <code>frame contains "password"</code>
+              <button class="ghost" type="button" data-apply>Apply filter</button>
+              <div class="finding" hidden><p>A login form sent a username and password over HTTP on port 80. Anyone on the network path could read it. HTTPS would have encrypted it, like the session on port 443.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" role="tabpanel" id="panel-passwords" aria-labelledby="tab-passwords" hidden>
+        <div class="pw-grid">
+          <div>
+            <div class="pw-field">
+              <label class="lbl" for="pwIn">Type a password to test</label>
+              <input id="pwIn" class="pw-in" type="text" value="Summer2025!" autocomplete="off" autocapitalize="off" spellcheck="false">
+            </div>
+            <label class="pw-show"><input type="checkbox" id="pwShow" checked> Show password</label>
+            <div class="meter" id="pwMeter" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+            <div class="verdict" id="pwVerdict" aria-live="polite"></div>
+            <p class="verdict-note" id="pwReason"></p>
+            <div class="crack-rows" id="pwRows"></div>
+          </div>
+          <div class="attack-box">
+            <h4>Dictionary attack, running on your input</h4>
+            <p class="small">Your password is hashed with SHA-256, then the page tries about 3,000 common words with the usual tweaks until one produces the same hash. This is the idea behind Hashcat and John the Ripper.</p>
+            <div class="small">SHA-256 of your password</div>
+            <div class="hash" id="pwHash"></div>
+            <p class="attack-result" id="pwAttack" aria-live="polite"></p>
+            <p class="small" id="pwSpeed"></p>
+            <h4>What helps</h4>
+            <p class="small">Use 14 or more characters, or a passphrase of four or more unrelated words. Use a different password on every site, with a password manager. Sites should store passwords with a slow hash such as bcrypt or Argon2, not a fast one.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="projects" aria-labelledby="projects-h">
+    <div class="wrap">
+      <h2 class="h2" id="projects-h" style="margin-bottom: clamp(28px, 4vw, 48px)">Projects</h2>
+
+      <article class="project" aria-labelledby="p1">
+        <div class="project-side">
+          <h3 class="h3" id="p1">SIEM deployment and attack simulation (Splunk on VM)</h3>
+          <dl class="meta">
+            <div><dt>Key tools</dt><dd>Splunk, Universal Forwarder agents, VirtualBox/VMware, Kali Linux, Windows/Linux log sources</dd></div>
+            <div><dt>Focus areas</dt><dd>SIEM setup, log collection, attack simulation, SPL queries, security monitoring</dd></div>
+          </dl>
+          <div class="try"><a class="btn primary" href="#lab" data-run-lab>Run these rules live</a></div>
+        </div>
+        <div class="project-main">
+          <figure><img src="images/splunk-dashboard.jpg" width="1600" height="855" loading="lazy" alt="Splunk dashboard showing security alerts from the lab environment"><figcaption>The Splunk dashboard built for the project.</figcaption></figure>
+          <p>For this project, I deployed a Splunk SIEM in a virtual machine environment and configured forwarder agents to collect logs from different systems. Once the SIEM was operational, I simulated attacks (such as brute force login attempts and port scans) to generate realistic security events.</p>
+          <figure><img src="images/splunk-search.jpg" width="1600" height="496" loading="lazy" alt="A Splunk search returning authentication events"><figcaption>A detection search running against the collected logs.</figcaption></figure>
+          <p>I wrote detection queries (in Splunk SPL) to analyze the collected logs, detect malicious activity, and create custom dashboards to visualize security alerts.</p>
+
+          <div class="query">
+            <div class="query-head"><span>Brute force login attempts: failed logins by the same user and address</span><button class="copy" type="button" data-copy="q1">Copy</button></div>
+<pre id="q1">index=security sourcetype=auth
+action="failure"
+| stats count by src, user
+| where count &gt; 10</pre>
+          </div>
+          <div class="query">
+            <div class="query-head"><span>Successful login after failures: a possible brute force success</span><button class="copy" type="button" data-copy="q2">Copy</button></div>
+<pre id="q2">index=security sourcetype=auth
+| transaction user maxspan=5m
+| search failure failure failure success</pre>
+          </div>
+          <div class="query">
+            <div class="query-head"><span>Port scanning activity: many ports hit by the same address</span><button class="copy" type="button" data-copy="q3">Copy</button></div>
+<pre id="q3">index=network sourcetype=firewall
+| stats dc(dest_port) as unique_ports by src_ip
+| where unique_ports &gt; 20</pre>
+          </div>
+
+          <p>This project demonstrated how SIEM solutions help security analysts monitor environments, identify threats, and respond to incidents in real time. It also strengthened my skills in log collection, query writing, and attack detection.</p>
+        </div>
+      </article>
+
+      <article class="project" aria-labelledby="p2">
+        <div class="project-side">
+          <h3 class="h3" id="p2">Network traffic analysis with Wireshark</h3>
+          <dl class="meta">
+            <div><dt>Key tools</dt><dd>Wireshark</dd></div>
+            <div><dt>Focus areas</dt><dd>Packet capture, anomaly detection, intrusion analysis</dd></div>
+          </dl>
+          <div class="try"><a class="btn primary" href="#labs" data-lab="packets">Open the packet analyzer</a></div>
+        </div>
+        <div class="project-main">
+          <p>For this project, I captured and analyzed network traffic to identify suspicious activity. Using Wireshark, I monitored packets, tracked anomalies, and documented findings such as unusual patterns that could indicate potential attacks.</p>
+          <figure><img src="images/wireshark.jpg" width="1600" height="928" loading="lazy" alt="Wireshark window showing a packet capture"><figcaption>A capture from the project, opened in Wireshark.</figcaption></figure>
+          <p>This project reinforced my understanding of how network packets reveal system behavior and taught me how to spot possible intrusions through careful analysis.</p>
+        </div>
+      </article>
+
+      <article class="project" aria-labelledby="p3">
+        <div class="project-side">
+          <h3 class="h3" id="p3">Password cracking and security</h3>
+          <dl class="meta">
+            <div><dt>Key tools</dt><dd>Hashcat, John the Ripper, Linux CLI</dd></div>
+            <div><dt>Focus areas</dt><dd>Password security, hashing, security policies</dd></div>
+          </dl>
+          <div class="try"><a class="btn primary" href="#labs" data-lab="passwords">Try the password cracker</a></div>
+        </div>
+        <div class="project-main">
+          <p>In this project, I tested the strength of different passwords using Hashcat and John the Ripper. By demonstrating how quickly weak passwords can be cracked, I emphasized the importance of strong password practices and secure hashing methods.</p>
+          <p>I concluded the project by developing guidelines for creating stronger passwords and implementing security policies that help organizations protect user credentials.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="band" id="skills" aria-labelledby="skills-h">
+    <div class="wrap split">
+      <h2 class="h2" id="skills-h">Skills and tools</h2>
+      <dl class="skill-list">
+        <div><dt>Languages and scripting</dt><dd>Python, Java, Bash, HTML/CSS</dd></div>
+        <div><dt>Familiar security tools</dt><dd>ClamAV, Hashcat, John the Ripper, Nmap, Snort, Wazuh and Wireshark</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="band" id="certifications" aria-labelledby="certs-h">
+    <div class="wrap">
+      <h2 class="h2" id="certs-h" style="margin-bottom: clamp(28px, 4vw, 48px)">Certifications</h2>
+      <div class="cert-shots">
+        <figure>
+          <a href="images/a-plus.jpg" rel="noopener"><img class="shot" src="images/a-plus.jpg" width="1400" height="1082" loading="lazy" alt="CompTIA A+ certificate for Ajani Cole, certified June 6, 2026"></a>
+          <figcaption>CompTIA A+ certificate. Select the image to view it full size.</figcaption>
+        </figure>
+        <figure>
+          <a href="images/security-plus.jpg" rel="noopener"><img class="shot" src="images/security-plus.jpg" width="1400" height="1082" loading="lazy" alt="CompTIA Security+ continuing education certificate"></a>
+          <figcaption>CompTIA Security+ certificate. Select the image to view it full size.</figcaption>
+        </figure>
+      </div>
+      <ul class="cert-list cols">
+        <li><div class="nm">CompTIA A+</div><div class="dt">Core 1 (220-1201) and Core 2 (220-1202). Certified June 2026, valid through June 2029.</div></li>
+        <li><div class="nm">CompTIA Security+</div><div class="dt">September 2025</div></li>
+        <li><div class="nm">Google: Crash Course on Python</div><div class="dt">January 2024</div></li>
+        <li><div class="nm">Google: Using Python to Interact with the Operating System</div><div class="dt">May 2024</div></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="band" id="community" aria-labelledby="community-h">
+    <div class="wrap">
+      <h2 class="h2" id="community-h" style="margin-bottom: clamp(24px, 4vw, 40px)">Community</h2>
+
+      <article class="org">
+        <figure><img src="images/code-crunch.jpg" width="1600" height="1200" loading="lazy" alt="A speaker at a podium beside a screen titled Technical Session: Threats and Vulnerabilities at a Code Crunch event"></figure>
+        <div>
+          <h3 class="h3">Code Crunch</h3>
+          <p class="tag">A student-driven club for interdisciplinary innovation in technology</p>
+          <p>Code Crunch is a student organization dedicated to advancing technical skills through coding workshops, collaborative projects, and hackathon events. As a volunteer speaker, I lead Security+ workshops during Code Crunch–hosted hackathons, providing participants with practical cybersecurity knowledge, foundational security concepts, and exam preparation guidance. My involvement reflects a commitment to supporting peer learning, contributing to student development, and engaging with the campus tech community.</p>
+        </div>
+      </article>
+
+      <article class="org">
+        <figure><img src="images/init-fiu.jpg" width="1600" height="838" loading="lazy" alt="A large group of students posing in an auditorium in front of the init FIU screen"></figure>
+        <div>
+          <h3 class="h3">INIT@FIU</h3>
+          <p class="tag">A community for innovation, collaboration, and technical growth</p>
+          <p>INIT@FIU is a student-led organization focused on helping students explore technology, develop new skills, and collaborate on impactful projects. As an active member, I participate in workshops, team builds, and tech-focused events that encourage creativity, problem-solving, and professional development. Being part of INIT@FIU has allowed me to grow alongside students who are passionate about innovation while contributing to a community that values learning, mentorship, and real-world application of technical skills.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-row">
+    <span>Ajani Cole, Computer Science, Florida International University</span>
+    <span><a href="https://github.com/Ajani-C" rel="noopener">github.com/Ajani-C</a></span>
+  </div>
+</footer>
+
+<script>
+/* ===== Pure logic: no DOM access in this block ===== */
+
+/* ---------- SHA-256 (synchronous, so the password lab works anywhere) ---------- */
+const SHA_K = new Uint32Array(64);
+const SHA_H0 = new Uint32Array(8);
+(function () {
+  let n = 0;
+  for (let c = 2; n < 64; c++) {
+    let prime = true;
+    for (let d = 2; d * d <= c; d++) { if (c % d === 0) { prime = false; break; } }
+    if (!prime) continue;
+    if (n < 8) SHA_H0[n] = Math.floor(Math.sqrt(c) * 4294967296);
+    SHA_K[n] = Math.floor(Math.cbrt(c) * 4294967296);
+    n++;
+  }
+})();
+
+function sha256Hex(str) {
+  const msg = new TextEncoder().encode(str);
+  const l = msg.length;
+  const total = ((l + 9 + 63) >> 6) << 6;
+  const buf = new Uint8Array(total);
+  buf.set(msg);
+  buf[l] = 0x80;
+  const dv = new DataView(buf.buffer);
+  dv.setUint32(total - 8, Math.floor((l * 8) / 4294967296));
+  dv.setUint32(total - 4, (l * 8) >>> 0);
+  const h = Uint32Array.from(SHA_H0);
+  const w = new Uint32Array(64);
+  for (let off = 0; off < total; off += 64) {
+    for (let i = 0; i < 16; i++) w[i] = dv.getUint32(off + i * 4);
+    for (let i = 16; i < 64; i++) {
+      const a = w[i - 15], b = w[i - 2];
+      const s0 = ((a >>> 7) | (a << 25)) ^ ((a >>> 18) | (a << 14)) ^ (a >>> 3);
+      const s1 = ((b >>> 17) | (b << 15)) ^ ((b >>> 19) | (b << 13)) ^ (b >>> 10);
+      w[i] = (w[i - 16] + s0 + w[i - 7] + s1) >>> 0;
+    }
+    let a = h[0], b = h[1], c = h[2], d = h[3], e = h[4], f = h[5], g = h[6], hh = h[7];
+    for (let i = 0; i < 64; i++) {
+      const S1 = ((e >>> 6) | (e << 26)) ^ ((e >>> 11) | (e << 21)) ^ ((e >>> 25) | (e << 7));
+      const ch = (e & f) ^ (~e & g);
+      const t1 = (hh + S1 + ch + SHA_K[i] + w[i]) >>> 0;
+      const S0 = ((a >>> 2) | (a << 30)) ^ ((a >>> 13) | (a << 19)) ^ ((a >>> 22) | (a << 10));
+      const maj = (a & b) ^ (a & c) ^ (b & c);
+      const t2 = (S0 + maj) >>> 0;
+      hh = g; g = f; f = e; e = (d + t1) >>> 0; d = c; c = b; b = a; a = (t1 + t2) >>> 0;
+    }
+    h[0] += a; h[1] += b; h[2] += c; h[3] += d; h[4] += e; h[5] += f; h[6] += g; h[7] += hh;
+  }
+  let out = '';
+  for (let i = 0; i < 8; i++) out += h[i].toString(16).padStart(8, '0');
+  return out;
+}
+
+/* ---------- Detection rules (the SPL from the SIEM project, as functions) ---------- */
+function createDetector(getThresholds, onAlert) {
+  const WINDOW = 60000;      // one-minute rolling window for counts
+  const TXN_SPAN = 300000;   // maxspan=5m for the failure/success sequence
+  const failBy = new Map();  // "src|user" -> [timestamps]
+  const userHist = new Map();// user -> [{t,res,src}]
+  const portsBy = new Map(); // src_ip -> [{t,port}]
+  const cooldown = new Map();
+  const bruteSrc = new Set();
+
+  function once(key, now) {
+    const until = cooldown.get(key);
+    if (until && until > now) return false;
+    cooldown.set(key, now + WINDOW);
+    return true;
+  }
+  function prune(arr, now, span, get) {
+    while (arr.length && now - get(arr[0]) > span) arr.shift();
+  }
+
+  function feed(ev) {
+    const th = getThresholds();
+    const now = ev.t;
+    if (ev.type === 'auth') {
+      const hist = userHist.get(ev.user) || [];
+      userHist.set(ev.user, hist);
+      hist.push({ t: now, res: ev.result, src: ev.src });
+      prune(hist, now, TXN_SPAN, (x) => x.t);
+
+      if (ev.result === 'failure') {
+        const key = ev.src + '|' + ev.user;
+        const arr = failBy.get(key) || [];
+        failBy.set(key, arr);
+        arr.push(now);
+        prune(arr, now, WINDOW, (x) => x);
+        if (arr.length > th.fail && once('brute|' + key, now)) {
+          bruteSrc.add(ev.src);
+          onAlert({
+            rule: 'brute', sev: 'high', t: now, src: ev.src, user: ev.user,
+            title: 'Brute force login attempts',
+            detail: arr.length + ' failed logins for ' + ev.user + ' from ' + ev.src + ' in the last minute.',
+          });
+        }
+      } else {
+        let run = 0;
+        for (let i = hist.length - 2; i >= 0 && hist[i].res === 'failure'; i--) run++;
+        if (run >= 3 && once('seq|' + ev.user + '|' + ev.src, now)) {
+          const hostile = bruteSrc.has(ev.src);
+          onAlert({
+            rule: 'seq', sev: hostile ? 'critical' : 'medium', t: now, src: ev.src, user: ev.user,
+            title: hostile ? 'Successful login after brute force' : 'Success after repeated failures',
+            detail: hostile
+              ? ev.user + ' logged in from ' + ev.src + ' right after ' + run + ' failures. Treat the account as compromised.'
+              : ev.user + ' logged in after ' + run + ' failures. Often a forgotten password, so check before escalating.',
+          });
+        }
+      }
+    } else if (ev.type === 'fw') {
+      const arr = portsBy.get(ev.src) || [];
+      portsBy.set(ev.src, arr);
+      arr.push({ t: now, port: ev.port });
+      prune(arr, now, WINDOW, (x) => x.t);
+      const uniq = new Set(arr.map((x) => x.port)).size;
+      if (uniq > th.ports && once('scan|' + ev.src, now)) {
+        onAlert({
+          rule: 'scan', sev: 'high', t: now, src: ev.src, user: '',
+          title: 'Port scanning activity',
+          detail: ev.src + ' touched ' + uniq + ' different ports in the last minute.',
+        });
+      }
+    }
+  }
+  function reset() { failBy.clear(); userHist.clear(); portsBy.clear(); cooldown.clear(); bruteSrc.clear(); }
+  return { feed, reset };
+}
+
+/* ---------- Packet capture: a small made-up pcap and a Wireshark-style display filter ---------- */
+function mulberry32(seed) {
+  let a = seed >>> 0;
+  return function () {
+    a = (a + 0x6D2B79F5) >>> 0;
+    let t = a;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+const NET = { client: '192.168.1.20', router: '192.168.1.1', server: '192.168.1.50', attacker: '192.168.1.66', web: '203.0.113.80' };
+
+function buildPackets() {
+  const rnd = mulberry32(11);
+  const list = [];
+  const FL = { S: 'syn', A: 'ack', R: 'rst', F: 'fin', P: 'psh' };
+  const FLNAME = { S: 'SYN', A: 'ACK', R: 'RST', F: 'FIN', P: 'PSH' };
+  function flags(str) {
+    const f = { syn: false, ack: false, rst: false, fin: false, psh: false };
+    for (const ch of str) f[FL[ch]] = true;
+    return f;
+  }
+  function tcp(t, src, dst, sport, dport, fstr, len, extra) {
+    const names = fstr.split('').map((c) => FLNAME[c]).join(', ');
+    const base = {
+      t, src, dst, sport, dport, l4: 'tcp', proto: 'TCP', flags: flags(fstr), len: 54 + (len || 0),
+      info: sport + ' → ' + dport + ' [' + names + '] Len=' + (len || 0), payload: '', method: '', qname: '', plen: len || 0,
+    };
+    list.push(Object.assign(base, extra || {}));
+  }
+  function udp(t, src, dst, sport, dport, proto, info, len, extra) {
+    list.push(Object.assign({
+      t, src, dst, sport, dport, l4: 'udp', proto, flags: null, len: 42 + len, info, payload: '', method: '', qname: '', plen: len,
+    }, extra || {}));
+  }
+  function icmp(t, src, dst, info) {
+    list.push({ t, src, dst, sport: 0, dport: 0, l4: 'icmp', proto: 'ICMP', flags: null, len: 98, info, payload: '', method: '', qname: '', plen: 56 });
+  }
+  const j = () => rnd() * 0.0004;
+
+  const C = NET.client, R = NET.router, S = NET.server, A = NET.attacker, W = NET.web;
+
+  /* DNS lookups */
+  udp(0.100, C, R, 53114, 53, 'DNS', 'Standard query 0x4a2b A portal.example.com', 32, { qname: 'portal.example.com' });
+  udp(0.121, R, C, 53, 53114, 'DNS', 'Standard query response 0x4a2b A portal.example.com A 203.0.113.80', 48, { qname: 'portal.example.com' });
+  udp(3.410, C, R, 61720, 53, 'DNS', 'Standard query 0x91c0 A updates.example.net', 32, { qname: 'updates.example.net' });
+  udp(3.433, R, C, 53, 61720, 'DNS', 'Standard query response 0x91c0 A updates.example.net A 203.0.113.81', 48, { qname: 'updates.example.net' });
+
+  /* HTTPS session to the public web server */
+  tcp(0.200, C, W, 51734, 443, 'S', 0);
+  tcp(0.231, W, C, 443, 51734, 'SA', 0);
+  tcp(0.231 + 0.0004, C, W, 51734, 443, 'A', 0);
+  tcp(0.240, C, W, 51734, 443, 'PA', 517, { proto: 'TLS', info: 'Client Hello' });
+  tcp(0.275, W, C, 443, 51734, 'PA', 1380, { proto: 'TLS', info: 'Server Hello, Certificate, Server Hello Done' });
+  tcp(0.290, C, W, 51734, 443, 'PA', 126, { proto: 'TLS', info: 'Client Key Exchange, Change Cipher Spec' });
+  tcp(0.330, W, C, 443, 51734, 'PA', 1210, { proto: 'TLS', info: 'Application Data' });
+  tcp(0.331, C, W, 51734, 443, 'A', 0);
+
+  /* Plain HTTP login to the internal server (credentials in clear text) */
+  const req1 = 'GET /login HTTP/1.1\r\nHost: 192.168.1.50\r\nUser-Agent: Mozilla/5.0\r\nAccept: text/html\r\n\r\n';
+  const res1 = 'HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nServer: nginx\r\n\r\n<form method="post" action="/login">';
+  const req2 = 'POST /login HTTP/1.1\r\nHost: 192.168.1.50\r\nContent-Type: application/x-www-form-urlencoded\r\nContent-Length: 38\r\n\r\nusername=jsmith&password=Welcome2025!';
+  const res2 = 'HTTP/1.1 302 Found\r\nLocation: /dashboard\r\nSet-Cookie: session=7f3a9c21\r\n\r\n';
+  tcp(1.800, C, S, 51802, 80, 'S', 0);
+  tcp(1.8008, S, C, 80, 51802, 'SA', 0);
+  tcp(1.8011, C, S, 51802, 80, 'A', 0);
+  tcp(1.820, C, S, 51802, 80, 'PA', req1.length, { proto: 'HTTP', info: 'GET /login HTTP/1.1', payload: req1, method: 'GET' });
+  tcp(1.842, S, C, 80, 51802, 'PA', res1.length, { proto: 'HTTP', info: 'HTTP/1.1 200 OK  (text/html)', payload: res1 });
+  tcp(1.843, C, S, 51802, 80, 'A', 0);
+  tcp(4.600, C, S, 51802, 80, 'PA', req2.length, { proto: 'HTTP', info: 'POST /login HTTP/1.1  (application/x-www-form-urlencoded)', payload: req2, method: 'POST' });
+  tcp(4.640, S, C, 80, 51802, 'PA', res2.length, { proto: 'HTTP', info: 'HTTP/1.1 302 Found', payload: res2 });
+  tcp(4.641, C, S, 51802, 80, 'A', 0);
+  tcp(4.900, C, S, 51802, 80, 'FA', 0);
+  tcp(4.901, S, C, 80, 51802, 'FA', 0);
+
+  /* ICMP pings */
+  icmp(5.000, R, C, 'Echo (ping) request  id=0x0001, seq=1/256, ttl=64');
+  icmp(5.0006, C, R, 'Echo (ping) reply    id=0x0001, seq=1/256, ttl=128');
+  icmp(6.000, R, C, 'Echo (ping) request  id=0x0001, seq=2/512, ttl=64');
+  icmp(6.0005, C, R, 'Echo (ping) reply    id=0x0001, seq=2/512, ttl=128');
+
+  /* The scan: one address, one source port, thirty destination ports, no completed handshakes */
+  const ports = [21, 22, 23, 25, 53, 80, 110, 111, 135, 139, 143, 443, 445, 993, 995, 1433, 1723, 3306, 3389, 5432, 5900, 8000, 8080, 8443, 8888, 9090, 9200, 27017, 6379, 11211];
+  const open = new Set([22, 80, 3306]);
+  ports.forEach((p, i) => {
+    const t0 = 8.0 + i * 0.012 + j();
+    tcp(t0, A, S, 44217, p, 'S', 0);
+    if (open.has(p)) {
+      tcp(t0 + 0.0006, S, A, p, 44217, 'SA', 0);
+      tcp(t0 + 0.0011, A, S, 44217, p, 'R', 0);
+    } else {
+      tcp(t0 + 0.0006, S, A, p, 44217, 'RA', 0);
+    }
+  });
+
+  list.sort((x, y) => x.t - y.t);
+  const t0 = list[0].t;
+  list.forEach((p, i) => { p.no = i + 1; p.rel = p.t - t0; });
+  return list;
+}
+
+const FILTER_FIELDS = {
+  'ip.src': (p) => [p.src],
+  'ip.dst': (p) => [p.dst],
+  'ip.addr': (p) => [p.src, p.dst],
+  'tcp.port': (p) => (p.l4 === 'tcp' ? [p.sport, p.dport] : []),
+  'tcp.srcport': (p) => (p.l4 === 'tcp' ? [p.sport] : []),
+  'tcp.dstport': (p) => (p.l4 === 'tcp' ? [p.dport] : []),
+  'udp.port': (p) => (p.l4 === 'udp' ? [p.sport, p.dport] : []),
+  'udp.srcport': (p) => (p.l4 === 'udp' ? [p.sport] : []),
+  'udp.dstport': (p) => (p.l4 === 'udp' ? [p.dport] : []),
+  'frame.len': (p) => [p.len],
+  'frame.number': (p) => [p.no],
+  'tcp.flags.syn': (p) => (p.flags ? [p.flags.syn ? 1 : 0] : []),
+  'tcp.flags.ack': (p) => (p.flags ? [p.flags.ack ? 1 : 0] : []),
+  'tcp.flags.rst': (p) => (p.flags ? [p.flags.rst ? 1 : 0] : []),
+  'tcp.flags.fin': (p) => (p.flags ? [p.flags.fin ? 1 : 0] : []),
+  'tcp.flags.push': (p) => (p.flags ? [p.flags.psh ? 1 : 0] : []),
+  'http.request.method': (p) => (p.method ? [p.method] : []),
+  'dns.qry.name': (p) => (p.qname ? [p.qname] : []),
+  'frame': (p) => [p.info + ' ' + p.payload],
+};
+const FILTER_PROTOS = {
+  ip: () => true,
+  tcp: (p) => p.l4 === 'tcp',
+  udp: (p) => p.l4 === 'udp',
+  icmp: (p) => p.l4 === 'icmp',
+  dns: (p) => p.proto === 'DNS',
+  http: (p) => p.proto === 'HTTP',
+  tls: (p) => p.proto === 'TLS',
+};
+const WORD_OPS = { and: '&&', or: '||', not: '!', eq: '==', ne: '!=', gt: '>', lt: '<', ge: '>=', le: '<=' };
+
+function tokenizeFilter(src) {
+  const re = /\s*(&&|\|\||==|!=|>=|<=|>|<|!|\(|\)|"[^"]*"|\d+\.\d+\.\d+\.\d+|\d+|[A-Za-z_][A-Za-z0-9_.]*)/y;
+  const out = [];
+  let pos = 0;
+  while (pos < src.length) {
+    if (/^\s*$/.test(src.slice(pos))) break;
+    re.lastIndex = pos;
+    const m = re.exec(src);
+    if (!m) return null;
+    let tok = m[1];
+    const low = tok.toLowerCase();
+    if (WORD_OPS[low]) tok = WORD_OPS[low];
+    out.push(tok);
+    pos = re.lastIndex;
+  }
+  return out;
+}
+
+function parseFilter(text) {
+  const src = String(text || '').trim();
+  if (!src) return { ok: true, empty: true, test: () => true };
+  const tokens = tokenizeFilter(src);
+  if (!tokens) return { ok: false, error: 'Unexpected character in filter.' };
+  let i = 0;
+  const peek = () => tokens[i];
+  const next = () => tokens[i++];
+  const COMPARE = ['==', '!=', '>', '<', '>=', '<=', 'contains'];
+
+  function parseValue(tok) {
+    if (tok === undefined) throw new Error('Missing a value after the operator.');
+    if (tok[0] === '"') return tok.slice(1, -1);
+    if (/^\d+$/.test(tok)) return Number(tok);
+    if (/^\d+\.\d+\.\d+\.\d+$/.test(tok)) return tok;
+    throw new Error('Expected a number, an IP address or a quoted string, got ' + tok + '.');
+  }
+  function compare(field, op, val) {
+    const get = FILTER_FIELDS[field];
+    if (op === 'contains') return (p) => get(p).some((v) => String(v).includes(String(val)));
+    const cmp = {
+      '==': (a, b) => a === b, '>': (a, b) => a > b, '<': (a, b) => a < b, '>=': (a, b) => a >= b, '<=': (a, b) => a <= b,
+    };
+    if (op === '!=') return (p) => { const vs = get(p); return vs.length > 0 && vs.every((v) => v !== val); };
+    return (p) => get(p).some((v) => cmp[op](v, val));
+  }
+  function parseOr() {
+    let l = parseAnd();
+    while (peek() === '||') { next(); const a = l, b = parseAnd(); l = (p) => a(p) || b(p); }
+    return l;
+  }
+  function parseAnd() {
+    let l = parseNot();
+    while (peek() === '&&') { next(); const a = l, b = parseNot(); l = (p) => a(p) && b(p); }
+    return l;
+  }
+  function parseNot() {
+    if (peek() === '!') { next(); const e = parseNot(); return (p) => !e(p); }
+    return parseAtom();
+  }
+  function parseAtom() {
+    const t = peek();
+    if (t === undefined) throw new Error('The filter ends too early.');
+    if (t === '(') {
+      next();
+      const e = parseOr();
+      if (next() !== ')') throw new Error('Missing a closing parenthesis.');
+      return e;
+    }
+    if (!/^[A-Za-z_]/.test(t)) throw new Error('Expected a field name, got ' + t + '.');
+    next();
+    const op = peek();
+    const isProto = Object.prototype.hasOwnProperty.call(FILTER_PROTOS, t);
+    const isField = Object.prototype.hasOwnProperty.call(FILTER_FIELDS, t);
+    if (!isProto && !isField) throw new Error('Unknown field or protocol: ' + t + '.');
+    if (COMPARE.indexOf(op) >= 0) {
+      if (!isField) throw new Error(t + ' is a protocol. Use it on its own, for example: ' + t);
+      next();
+      return compare(t, op, parseValue(next()));
+    }
+    if (isProto) return FILTER_PROTOS[t];
+    const get = FILTER_FIELDS[t];
+    return (p) => { const vs = get(p); return vs.length > 0 && !!vs[0]; };
+  }
+  try {
+    const fn = parseOr();
+    if (i < tokens.length) throw new Error('Unexpected ' + tokens[i] + '.');
+    return { ok: true, empty: false, test: fn };
+  } catch (e) {
+    return { ok: false, error: e.message };
+  }
+}
+
+function hexDump(str) {
+  const bytes = new TextEncoder().encode(str);
+  const rows = [];
+  for (let off = 0; off < bytes.length; off += 16) {
+    const chunk = bytes.slice(off, off + 16);
+    const hex = Array.from(chunk, (b) => b.toString(16).padStart(2, '0')).join(' ');
+    const asc = Array.from(chunk, (b) => (b >= 32 && b < 127 ? String.fromCharCode(b) : '.')).join('');
+    rows.push(off.toString(16).padStart(4, '0') + '  ' + hex.padEnd(47, ' ') + '  ' + asc);
+  }
+  return rows.join('\n');
+}
+
+/* ---------- Passwords ---------- */
+const COMMON = [
+  'password', '123456', '12345678', 'qwerty', '123456789', '12345', '1234', '111111', '1234567', 'dragon', '123123', 'baseball',
+  'abc123', 'football', 'monkey', 'letmein', '696969', 'shadow', 'master', '666666', 'qwertyuiop', '123321', 'mustang', '1234567890',
+  'michael', '654321', 'superman', '1qaz2wsx', '7777777', '121212', '000000', 'qazwsx', '123qwe', 'killer', 'trustno1', 'jordan',
+  'jennifer', 'zxcvbnm', 'asdfgh', 'hunter', 'buster', 'soccer', 'harley', 'batman', 'andrew', 'tigger', 'sunshine', 'iloveyou',
+  'charlie', 'robert', 'thomas', 'hockey', 'ranger', 'daniel', 'starwars', '112233', 'george', 'computer', 'michelle', 'jessica',
+  'pepper', 'zxcvbn', '555555', '11111111', '131313', 'freedom', '777777', 'pass', 'maggie', '159753', 'aaaaaa', 'ginger', 'princess',
+  'joshua', 'cheese', 'amanda', 'summer', 'love', 'ashley', 'nicole', 'chelsea', 'biteme', 'matthew', 'access', 'yankees', '987654321',
+  'dallas', 'austin', 'thunder', 'taylor', 'matrix', 'admin', 'welcome', 'login', 'passw0rd', 'password1', 'password123', 'admin123',
+  'letmein1', 'welcome1', 'qwerty123', 'iloveyou1', 'monkey1', 'dragon1', 'football1', 'baseball1', 'sunshine1', 'princess1',
+  '1q2w3e4r', '1q2w3e', 'q1w2e3r4', 'asdfghjkl', 'zaq12wsx', 'abcd1234', 'abc12345', 'changeme', 'default', 'guest', 'root', 'test',
+  'test123', 'secret', 'hello', 'hello123', 'whatever', 'flower', 'cookie', 'spring', 'winter', 'autumn', 'panthers', 'gopanthers',
+  'florida', 'miami', 'cyber', 'security', 'hacker', 'kali', 'linux', 'windows', 'internet', 'google', 'apple', 'samsung', 'pokemon',
+  'naruto', 'minecraft', 'fortnite', 'spiderman', 'liverpool', 'chicago', 'brooklyn', 'nirvana', 'metallica', 'eminem', 'bandit',
+  'cowboy', 'coffee', 'orange', 'purple', 'silver', 'golden', 'diamond', 'rainbow', 'lakers', 'jesus', 'angel', 'lovely', 'family',
+  'friends', 'sparky', 'rocket', '123abc', '1234qwer', 'pass123', 'mypassword', 'samantha', 'jasmine', 'bailey', 'hannah', 'tiger',
+];
+
+const LEET_MAP = { '4': 'a', '@': 'a', '3': 'e', '1': 'i', '!': 'i', '0': 'o', '5': 's', '$': 's', '7': 't' };
+function deleet(s) { return s.replace(/[43@1!05$7]/g, (c) => LEET_MAP[c]); }
+function leetify(s) { return s.replace(/a/g, '@').replace(/e/g, '3').replace(/i/g, '1').replace(/o/g, '0').replace(/s/g, '$'); }
+function lightLeet(s) { return s.replace(/a/g, '@').replace(/o/g, '0'); }
+function capitalize(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+const CRACK_RATES = [
+  { id: 'online', label: 'Guessing at a login form', note: '10 guesses a second, before any lockout', rate: 10 },
+  { id: 'md5', label: 'Stolen database, fast hash (MD5)', note: '100 billion guesses a second on one GPU', rate: 1e11 },
+  { id: 'bcrypt', label: 'Stolen database, bcrypt cost 12', note: 'about 1,400 guesses a second on one GPU', rate: 1400 },
+];
+
+function charPool(pw) {
+  let p = 0;
+  if (/[a-z]/.test(pw)) p += 26;
+  if (/[A-Z]/.test(pw)) p += 26;
+  if (/\d/.test(pw)) p += 10;
+  if (/[^A-Za-z0-9]/.test(pw)) p += 33;
+  return p;
+}
+
+function formatDuration(sec) {
+  if (sec < 0.001) return 'instantly';
+  if (sec < 1) return 'under a second';
+  const fmt = (n) => Math.round(n).toLocaleString('en-US');
+  if (sec < 60) return fmt(sec) + (Math.round(sec) === 1 ? ' second' : ' seconds');
+  if (sec < 3600) return fmt(sec / 60) + (Math.round(sec / 60) === 1 ? ' minute' : ' minutes');
+  if (sec < 86400) return fmt(sec / 3600) + (Math.round(sec / 3600) === 1 ? ' hour' : ' hours');
+  if (sec < 31557600) return fmt(sec / 86400) + (Math.round(sec / 86400) === 1 ? ' day' : ' days');
+  const y = sec / 31557600;
+  if (y < 1000) return fmt(y) + (Math.round(y) === 1 ? ' year' : ' years');
+  if (y < 1e6) return fmt(y / 1000) + ' thousand years';
+  if (y < 1e9) return fmt(y / 1e6) + ' million years';
+  return 'over a billion years';
+}
+
+function analyzePassword(pw) {
+  if (!pw) return null;
+  const len = pw.length;
+  const pool = charPool(pw);
+  const brute = Math.pow(pool, len);
+  let guesses = brute;
+  let reason = 'No common pattern found, so an attacker has to try character combinations.';
+  const lower = pw.toLowerCase();
+  const exact = COMMON.indexOf(lower);
+  if (exact >= 0) {
+    guesses = exact + 1;
+    reason = 'This is number ' + (exact + 1) + ' in a list of common passwords. Attackers try those first.';
+  } else {
+    const m = lower.match(/^(.*?)([0-9!@#$%^&*._\-]{0,8})$/);
+    const base = m ? m[1] : lower;
+    const suffix = m ? m[2] : '';
+    const rank = COMMON.indexOf(deleet(base));
+    if (base && rank >= 0) {
+      const capMul = pw !== lower ? 2 : 1;
+      const leetMul = deleet(base) !== base ? 4 : 1;
+      const sufSpace = suffix ? Math.pow(10, Math.min(suffix.length, 6)) * (/[^0-9]/.test(suffix) ? 12 : 1) : 1;
+      const est = (rank + 1) * capMul * leetMul * sufSpace;
+      if (est < guesses) {
+        guesses = est;
+        reason = 'A common word with a capital letter, number or symbol swapped in. Cracking tools apply those rules automatically.';
+      }
+    }
+    const rep = pw.match(/^(.{1,3})\1+$/);
+    if (rep) {
+      const est = Math.pow(pool, Math.min(3, rep[1].length)) * len;
+      if (est < guesses) { guesses = est; reason = 'A short chunk repeated. There are very few of these to try.'; }
+    }
+  }
+  guesses = Math.max(1, guesses);
+  const times = CRACK_RATES.map((r) => ({ id: r.id, label: r.label, note: r.note, seconds: guesses / 2 / r.rate }));
+  const fast = times[1].seconds;
+  let level = 0, verdict = 'Weak';
+  if (fast >= 31557600 * 1000) { level = 4; verdict = 'Strong'; }
+  else if (fast >= 31557600) { level = 3; verdict = 'Good'; }
+  else if (fast >= 86400) { level = 2; verdict = 'Fair'; }
+  else { level = 1; verdict = 'Weak'; }
+  return { len, pool, guesses, reason, times, level, verdict, bits: Math.log2(guesses) };
+}
+
+const ATTACK_RULES = [
+  ['as written', (w) => w],
+  ['capitalized', (w) => capitalize(w)],
+  ['all caps', (w) => w.toUpperCase()],
+  ['word + 1', (w) => w + '1'],
+  ['capitalized + 1', (w) => capitalize(w) + '1'],
+  ['word + 123', (w) => w + '123'],
+  ['capitalized + 123', (w) => capitalize(w) + '123'],
+  ['word + !', (w) => w + '!'],
+  ['capitalized + !', (w) => capitalize(w) + '!'],
+  ['capitalized + 2024', (w) => capitalize(w) + '2024'],
+  ['capitalized + 2025', (w) => capitalize(w) + '2025'],
+  ['capitalized + 2024!', (w) => capitalize(w) + '2024!'],
+  ['capitalized + 2025!', (w) => capitalize(w) + '2025!'],
+  ['leetspeak', (w) => leetify(w)],
+  ['capitalized leetspeak', (w) => capitalize(leetify(w))],
+  ['leetspeak + 1', (w) => leetify(w) + '1'],
+  ['light leetspeak (a to @, o to 0)', (w) => lightLeet(w)],
+  ['capitalized light leetspeak', (w) => capitalize(lightLeet(w))],
+  ['capitalized light leetspeak + 1', (w) => capitalize(lightLeet(w)) + '1'],
+];
+
+function dictionaryAttack(targetHash, now) {
+  const clock = now || (() => Date.now());
+  const start = clock();
+  let tries = 0;
+  for (const word of COMMON) {
+    for (const rule of ATTACK_RULES) {
+      const cand = rule[1](word);
+      tries++;
+      if (sha256Hex(cand) === targetHash) {
+        return { found: cand, rule: rule[0], word, tries, ms: clock() - start };
+      }
+    }
+  }
+  return { found: null, tries, ms: clock() - start };
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { sha256Hex, createDetector, buildPackets, parseFilter, hexDump, analyzePassword, formatDuration, dictionaryAttack, COMMON, NET, CRACK_RATES };
+}
+
+/* ===== Page behavior ===== */
+(function () {
+  'use strict';
+  const $ = (id) => document.getElementById(id);
+  const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text !== undefined) n.textContent = text; return n; };
+
+  /* ---------- Theme ---------- */
+  (function theme() {
+    const root = document.documentElement;
+    const mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : { matches: false };
+    const label = $('themeLabel');
+    const current = () => root.dataset.theme || (mq.matches ? 'dark' : 'light');
+    const paint = () => { label.textContent = current() === 'dark' ? 'Light mode' : 'Dark mode'; };
+    try { const s = localStorage.getItem('ac-theme'); if (s === 'dark' || s === 'light') root.dataset.theme = s; } catch (e) { /* storage unavailable */ }
+    $('themeBtn').addEventListener('click', () => {
+      const next = current() === 'dark' ? 'light' : 'dark';
+      root.dataset.theme = next;
+      try { localStorage.setItem('ac-theme', next); } catch (e) { /* storage unavailable */ }
+      paint();
+    });
+    if (mq.addEventListener) mq.addEventListener('change', paint);
+    paint();
+  })();
+
+  /* ---------- Copy buttons ---------- */
+  document.querySelectorAll('[data-copy]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const target = $(btn.dataset.copy);
+      const reset = () => setTimeout(() => { btn.textContent = 'Copy'; }, 1600);
+      const fallback = () => {
+        const r = document.createRange(); r.selectNodeContents(target);
+        const s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        btn.textContent = 'Selected';
+        reset();
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(target.textContent).then(() => { btn.textContent = 'Copied'; reset(); }, fallback);
+      } else { fallback(); }
+    });
+  });
+
+  /* ---------- Tabs ---------- */
+  const tabs = Array.from(document.querySelectorAll('.tab'));
+  function selectLab(id, focus) {
+    tabs.forEach((t) => {
+      const on = t.id === 'tab-' + id;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      $(t.getAttribute('aria-controls')).hidden = !on;
+      if (on && focus) t.focus();
+    });
+  }
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => selectLab(t.id.slice(4)));
+    t.addEventListener('keydown', (e) => {
+      let n = null;
+      if (e.key === 'ArrowRight') n = (i + 1) % tabs.length;
+      else if (e.key === 'ArrowLeft') n = (i - 1 + tabs.length) % tabs.length;
+      else if (e.key === 'Home') n = 0;
+      else if (e.key === 'End') n = tabs.length - 1;
+      if (n !== null) { e.preventDefault(); selectLab(tabs[n].id.slice(4), true); }
+    });
+  });
+  document.querySelectorAll('[data-lab]').forEach((a) => a.addEventListener('click', () => selectLab(a.dataset.lab)));
+  document.querySelectorAll('[data-run-lab]').forEach((a) => a.addEventListener('click', () => {
+    setTimeout(() => { const b = document.querySelector('[data-attack="brute"]'); if (b) b.focus({ preventScroll: true }); }, 500);
+  }));
+
+  /* ---------- Live detection lab ---------- */
+  (function siemLab() {
+    const stream = $('stream');
+    const alertsEl = $('alerts');
+    const th = { fail: 10, ports: 20 };
+    const timers = new Set();
+    const alertedSrcs = new Set();
+    let events = 0, alertCount = 0, focusSrc = null, paused = false;
+
+    const USERS = [['acarter', '10.0.4.12'], ['mlopez', '10.0.4.21'], ['jnguyen', '10.0.4.33'], ['spatel', '10.0.4.47'],
+      ['tbrooks', '10.0.4.58'], ['kwilson', '10.0.4.64'], ['dfarah', '10.0.4.71'], ['rchen', '10.0.4.86']];
+    const SCAN_PORTS = [21, 22, 23, 25, 53, 69, 80, 81, 88, 110, 111, 135, 139, 143, 389, 443, 445, 636, 993, 995, 1433, 1521, 1723, 2049,
+      3306, 3389, 5060, 5432, 5900, 5985, 6379, 7001, 8000, 8080, 8443, 8888, 9090, 9200, 11211, 27017];
+    const pad = (n) => String(n).padStart(2, '0');
+    const clock = (t) => { const d = new Date(t); return pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds()); };
+    const rnd = (n) => Math.floor(Math.random() * n);
+    const pick = (a) => a[rnd(a.length)];
+    const extIP = () => pick(['203.0.113.', '198.51.100.', '192.0.2.']) + (2 + rnd(250));
+    const shuffle = (a) => { const b = a.slice(); for (let i = b.length - 1; i > 0; i--) { const j = rnd(i + 1); [b[i], b[j]] = [b[j], b[i]]; } return b; };
+    function later(ms, fn) { const id = setTimeout(() => { timers.delete(id); fn(); }, ms); timers.add(id); }
+
+    const detector = createDetector(() => th, onAlert);
+
+    function showEmpty() {
+      const li = el('li', 'empty-alerts', 'No alerts yet. Launch an attack below. Normal traffic does not trigger the rules.');
+      li.id = 'emptyAlerts';
+      alertsEl.append(li);
+    }
+
+    function addLine(ev) {
+      const li = el('li');
+      li.dataset.src = ev.src;
+      li.append(el('span', 't', clock(ev.t)));
+      if (ev.type === 'auth') {
+        li.append(el('span', 'k', 'auth'));
+        li.append(el('span', 'r ' + (ev.result === 'failure' ? 'bad' : 'good'), ev.result));
+        li.append(el('span', 'd', 'user=' + ev.user + ' src=' + ev.src));
+      } else {
+        li.append(el('span', 'k', 'fw'));
+        li.append(el('span', 'r ' + (ev.action === 'DENY' ? 'deny' : 'good'), ev.action));
+        li.append(el('span', 'd', 'src_ip=' + ev.src + ' dest_port=' + ev.port));
+      }
+      if (focusSrc && ev.src === focusSrc) li.classList.add('match');
+      stream.prepend(li);
+      while (stream.children.length > 70) stream.lastChild.remove();
+    }
+
+    function emit(ev) {
+      events++;
+      $('evCount').textContent = String(events);
+      addLine(ev);
+      detector.feed(ev);
+    }
+
+    function setFocus(src) {
+      focusSrc = src;
+      stream.classList.toggle('focus', !!src);
+      Array.from(stream.children).forEach((li) => li.classList.toggle('match', !!src && li.dataset.src === src));
+      alertsEl.querySelectorAll('button.alert-btn').forEach((b) => b.setAttribute('aria-pressed', String(!!src && b.dataset.src === src)));
+      $('alertHint').textContent = src ? 'highlighting ' + src : 'select one to highlight its logs';
+    }
+
+    function pushAlertItem(li) {
+      const empty = $('emptyAlerts');
+      if (empty) empty.remove();
+      alertsEl.prepend(li);
+      while (alertsEl.children.length > 14) alertsEl.lastChild.remove();
+    }
+
+    function onAlert(a) {
+      alertCount++;
+      $('alCount').textContent = String(alertCount);
+      alertedSrcs.add(a.src);
+      const li = el('li', 'is-new');
+      const b = el('button', 'alert-btn');
+      b.type = 'button';
+      b.dataset.src = a.src;
+      b.setAttribute('aria-pressed', String(focusSrc === a.src));
+      const top = el('div', 'alert-top');
+      top.append(el('span', 'sev ' + a.sev, a.sev), el('span', 'alert-time', clock(a.t)));
+      b.append(top, el('div', 'alert-title', a.title), el('div', 'alert-detail', a.detail), el('div', 'alert-hint', 'Select to highlight the logs from ' + a.src));
+      b.addEventListener('click', () => setFocus(focusSrc === a.src ? null : a.src));
+      li.append(b);
+      pushAlertItem(li);
+      const rule = document.querySelector('.rule[data-rule="' + a.rule + '"]');
+      if (rule) { rule.classList.add('live'); later(2600, () => rule.classList.remove('live')); }
+    }
+
+    function note(text) {
+      const li = el('li', 'is-new');
+      const d = el('div', 'alert-btn note');
+      const top = el('div', 'alert-top');
+      top.append(el('span', 'sev note', 'missed'), el('span', 'alert-time', clock(Date.now())));
+      d.append(top, el('div', 'alert-title', 'No alert fired'), el('div', 'alert-detail', text));
+      li.append(d);
+      pushAlertItem(li);
+    }
+
+    /* Background traffic */
+    function normalEvent(t) {
+      const r = Math.random();
+      const u = pick(USERS);
+      if (r < 0.45) return { type: 'auth', t, result: 'success', user: u[0], src: u[1] };
+      if (r < 0.49) return { type: 'auth', t, result: 'failure', user: u[0], src: u[1] };
+      if (r < 0.9) return { type: 'fw', t, action: 'ALLOW', src: u[1], port: pick([443, 443, 443, 80, 53, 22, 993]) };
+      return { type: 'fw', t, action: 'DENY', src: extIP(), port: pick([23, 445, 3389, 8080, 5900, 1433]) };
+    }
+    const tick = setInterval(() => { if (!paused) emit(normalEvent(Date.now())); }, 620);
+    window.addEventListener('pagehide', () => clearInterval(tick));
+
+    /* Attacks */
+    function bruteForce(succeed) {
+      const src = extIP(), user = pick(['admin', 'root', 'administrator']);
+      const n = 18, gap = 140;
+      for (let i = 0; i < n; i++) later(i * gap, () => emit({ type: 'auth', t: Date.now(), result: 'failure', user, src }));
+      let end = n * gap;
+      if (succeed) { end += 160; later(end, () => emit({ type: 'auth', t: Date.now(), result: 'success', user, src })); }
+      end += 350;
+      later(end, () => {
+        if (!alertedSrcs.has(src)) note(n + ' failed logins from ' + src + ' stayed under the threshold of ' + th.fail + '. Lower the threshold to catch this attack, then expect more false alarms.');
+      });
+      return end;
+    }
+    function portScan() {
+      const src = extIP();
+      const ports = shuffle(SCAN_PORTS);
+      ports.forEach((p, i) => later(i * 45, () => emit({ type: 'fw', t: Date.now(), action: (p === 22 || p === 80 || p === 443) ? 'ALLOW' : 'DENY', src, port: p })));
+      const end = ports.length * 45 + 350;
+      later(end, () => {
+        if (!alertedSrcs.has(src)) note(ports.length + ' ports from ' + src + ' stayed under the threshold of ' + th.ports + '. Lower the threshold to catch this scan.');
+      });
+      return end;
+    }
+    function forgot() {
+      const u = pick(USERS);
+      for (let i = 0; i < 3; i++) later(i * 500, () => emit({ type: 'auth', t: Date.now(), result: 'failure', user: u[0], src: u[1] }));
+      later(1700, () => emit({ type: 'auth', t: Date.now(), result: 'success', user: u[0], src: u[1] }));
+      return 1900;
+    }
+    document.querySelectorAll('[data-attack]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const kind = btn.dataset.attack;
+        const dur = kind === 'brute' ? bruteForce(false) : kind === 'breakin' ? bruteForce(true) : kind === 'scan' ? portScan() : forgot();
+        btn.disabled = true;
+        later(dur + 50, () => { btn.disabled = false; });
+      });
+    });
+
+    /* Controls */
+    function renderRules() {
+      $('spl1').textContent = 'index=security sourcetype=auth\naction="failure"\n| stats count by src, user\n| where count > ' + th.fail;
+      $('spl2').textContent = 'index=security sourcetype=auth\n| transaction user maxspan=5m\n| search failure failure failure success';
+      $('spl3').textContent = 'index=network sourcetype=firewall\n| stats dc(dest_port) as unique_ports by src_ip\n| where unique_ports > ' + th.ports;
+    }
+    $('thFail').addEventListener('input', (e) => { th.fail = Number(e.target.value); $('thFailOut').textContent = String(th.fail); renderRules(); });
+    $('thPorts').addEventListener('input', (e) => { th.ports = Number(e.target.value); $('thPortsOut').textContent = String(th.ports); renderRules(); });
+    $('pauseBtn').addEventListener('click', (e) => {
+      paused = !paused;
+      e.currentTarget.setAttribute('aria-pressed', String(paused));
+      e.currentTarget.textContent = paused ? 'Resume background traffic' : 'Pause background traffic';
+      $('liveDot').classList.toggle('off', paused);
+    });
+
+    function seed() {
+      const base = Date.now();
+      let t = base - 48000;
+      for (let i = 0; i < 12; i++) { t += 1800 + rnd(1800); emit(normalEvent(t)); }
+      const src = '203.0.113.77';
+      t = base - 18000;
+      for (let i = 0; i < 14; i++) { t += 150; emit({ type: 'auth', t, result: 'failure', user: 'admin', src }); }
+      for (let i = 0; i < 3; i++) { t += 1400 + rnd(900); emit(normalEvent(t)); }
+    }
+    function reset() {
+      timers.forEach((id) => clearTimeout(id));
+      timers.clear();
+      detector.reset();
+      alertedSrcs.clear();
+      stream.replaceChildren();
+      alertsEl.replaceChildren();
+      events = 0; alertCount = 0;
+      $('evCount').textContent = '0'; $('alCount').textContent = '0';
+      document.querySelectorAll('[data-attack]').forEach((b) => { b.disabled = false; });
+      setFocus(null);
+      showEmpty();
+    }
+    $('resetBtn').addEventListener('click', () => { reset(); seed(); });
+
+    renderRules();
+    showEmpty();
+    seed();
+  })();
+
+  /* ---------- Packet analyzer ---------- */
+  (function packetLab() {
+    const packets = buildPackets();
+    const body = $('pkBody');
+    const input = $('pkFilter');
+    const wrap = $('pkWrap');
+    let visible = [];
+    let selected = null;
+    const norm = (s) => s.replace(/\s+/g, ' ').trim();
+
+    function rowClass(p) {
+      if (p.flags && p.flags.rst) return 'k-rst';
+      if (p.proto === 'DNS') return 'k-dns';
+      if (p.proto === 'HTTP') return 'k-http';
+      return '';
+    }
+    function buildRow(p) {
+      const tr = el('tr', rowClass(p));
+      tr.dataset.no = String(p.no);
+      tr.setAttribute('aria-selected', 'false');
+      [p.no, p.rel.toFixed(6), p.src, p.dst, p.proto, p.len].forEach((v) => tr.append(el('td', '', String(v))));
+      tr.append(el('td', 'info', p.info));
+      return tr;
+    }
+    function layer(title, rows) {
+      const d = el('details');
+      d.open = true;
+      d.append(el('summary', '', title));
+      const dl = el('dl');
+      rows.forEach((r) => { dl.append(el('dt', '', r[0]), el('dd', '', String(r[1]))); });
+      d.append(dl);
+      return d;
+    }
+    function showDetail(p) {
+      const tree = $('pkTree'), hex = $('pkHex');
+      tree.replaceChildren(el('h4', '', 'Packet details'));
+      hex.replaceChildren(el('h4', '', 'Packet bytes'));
+      if (!p) { tree.append(el('p', 'muted small', 'No packet selected. Adjust the filter to show packets.')); return; }
+      tree.append(layer('Frame ' + p.no, [['Length', p.len + ' bytes'], ['Time since first packet', p.rel.toFixed(6) + ' s']]));
+      tree.append(layer('Internet Protocol Version 4', [['Source', p.src], ['Destination', p.dst], ['Time to live', p.src === NET.client ? 128 : 64], ['Protocol', p.l4.toUpperCase()]]));
+      if (p.l4 === 'tcp') {
+        const f = p.flags;
+        const val = (f.fin ? 1 : 0) + (f.syn ? 2 : 0) + (f.rst ? 4 : 0) + (f.psh ? 8 : 0) + (f.ack ? 16 : 0);
+        const names = ['syn', 'ack', 'rst', 'fin', 'psh'].filter((k) => f[k]).map((k) => k.toUpperCase()).join(', ');
+        tree.append(layer('Transmission Control Protocol', [
+          ['Source port', p.sport], ['Destination port', p.dport], ['Flags', '0x' + val.toString(16).padStart(3, '0') + ' (' + names + ')'],
+          ['SYN / ACK / RST', (f.syn ? 1 : 0) + ' / ' + (f.ack ? 1 : 0) + ' / ' + (f.rst ? 1 : 0)], ['Payload', p.plen + ' bytes'],
+        ]));
+      } else if (p.l4 === 'udp') {
+        tree.append(layer('User Datagram Protocol', [['Source port', p.sport], ['Destination port', p.dport], ['Payload', p.plen + ' bytes']]));
+      } else {
+        tree.append(layer('Internet Control Message Protocol', [['Summary', p.info]]));
+      }
+      if (p.proto === 'HTTP' || p.proto === 'TLS' || p.proto === 'DNS') tree.append(layer(p.proto, [['Summary', p.info]]));
+      if (p.payload) hex.append(el('pre', '', hexDump(p.payload)));
+      else hex.append(el('p', 'muted small', 'No readable application data in this packet.'));
+    }
+    function select(p, scroll) {
+      selected = p;
+      Array.from(body.children).forEach((tr) => {
+        const on = !!p && Number(tr.dataset.no) === p.no;
+        tr.setAttribute('aria-selected', String(on));
+        if (on && scroll) tr.scrollIntoView({ block: 'nearest' });
+      });
+      showDetail(p);
+    }
+    function render() {
+      const parsed = parseFilter(input.value);
+      input.classList.toggle('valid', parsed.ok && !parsed.empty);
+      input.classList.toggle('invalid', !parsed.ok);
+      const msg = $('pkMsg');
+      msg.classList.toggle('err', !parsed.ok);
+      if (!parsed.ok) {
+        msg.textContent = 'Filter not understood. ' + parsed.error + ' Try ip.addr == 192.168.1.66 or tcp.port == 80.';
+        return;
+      }
+      msg.textContent = parsed.empty ? 'Showing every packet. Type a filter, pick an example, or start with a mission.' : 'Filter applied.';
+      visible = packets.filter(parsed.test);
+      body.replaceChildren(...visible.map(buildRow));
+      const counts = new Map();
+      visible.forEach((p) => counts.set(p.src, (counts.get(p.src) || 0) + 1));
+      const top = Array.from(counts).sort((a, b) => b[1] - a[1])[0];
+      $('pkStatus').textContent = 'Showing ' + visible.length + ' of ' + packets.length + ' packets.' + (top ? ' Busiest source: ' + top[0] + ' (' + top[1] + ' packets).' : '');
+      const keep = selected && visible.indexOf(selected) >= 0 ? selected : visible[0] || null;
+      select(keep, false);
+      document.querySelectorAll('.mission').forEach((m) => {
+        m.querySelector('.finding').hidden = norm(m.dataset.filter) !== norm(input.value);
+      });
+    }
+    function setFilter(v) { input.value = v; render(); }
+
+    input.addEventListener('input', render);
+    $('pkClear').addEventListener('click', () => { setFilter(''); input.focus(); });
+    document.querySelectorAll('.chip').forEach((c) => c.addEventListener('click', () => setFilter(c.dataset.filter)));
+    document.querySelectorAll('.mission [data-apply]').forEach((b) => b.addEventListener('click', () => setFilter(b.closest('.mission').dataset.filter)));
+    body.addEventListener('click', (e) => {
+      const tr = e.target.closest('tr');
+      if (!tr) return;
+      select(visible.find((p) => p.no === Number(tr.dataset.no)) || null, false);
+    });
+    wrap.addEventListener('keydown', (e) => {
+      if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+      e.preventDefault();
+      if (!visible.length) return;
+      const i = Math.max(0, visible.indexOf(selected));
+      const j = e.key === 'ArrowDown' ? Math.min(visible.length - 1, i + 1) : Math.max(0, i - 1);
+      select(visible[j], true);
+    });
+    render();
+  })();
+
+  /* ---------- Password lab ---------- */
+  (function passwordLab() {
+    const inp = $('pwIn');
+    let timer = null;
+    $('pwShow').addEventListener('change', (e) => { inp.type = e.target.checked ? 'text' : 'password'; });
+    inp.addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(run, 80); });
+
+    function run() {
+      const pw = inp.value;
+      const a = analyzePassword(pw);
+      const meter = $('pwMeter');
+      const rows = $('pwRows');
+      rows.replaceChildren();
+      meter.className = 'meter' + (a ? ' l' + a.level : '');
+      if (!a) {
+        $('pwVerdict').textContent = 'Type a password above';
+        $('pwReason').textContent = 'The estimate updates as you type.';
+        $('pwHash').textContent = '';
+        $('pwAttack').textContent = '';
+        $('pwAttack').className = 'attack-result';
+        $('pwSpeed').textContent = '';
+        return;
+      }
+      $('pwVerdict').textContent = a.verdict;
+      $('pwReason').textContent = a.reason + ' Estimates are rough and assume an attacker who knows the usual tricks.';
+      a.times.forEach((t) => {
+        const row = el('div', 'crack-row');
+        const lbl = el('div', 'lbl2');
+        lbl.append(el('span', '', t.label), el('span', '', formatDuration(t.seconds)));
+        const bar = el('div', 'bar');
+        const fill = el('i');
+        const pct = Math.max(2, Math.min(100, ((Math.log10(Math.max(t.seconds, 0.001)) + 3) / 15) * 100));
+        fill.style.width = pct.toFixed(1) + '%';
+        bar.append(fill);
+        row.append(lbl, bar, el('div', 'note', t.note));
+        rows.append(row);
+      });
+
+      const hash = sha256Hex(pw);
+      $('pwHash').textContent = hash;
+      const r = dictionaryAttack(hash, () => performance.now());
+      const res = $('pwAttack');
+      const speed = Math.round(r.tries / (Math.max(r.ms, 0.5) / 1000));
+      if (r.found) {
+        res.className = 'attack-result cracked';
+        res.textContent = 'Cracked after ' + r.tries.toLocaleString('en-US') + ' guesses. The word "' + r.word + '" with the rule "' + r.rule + '" produced the same hash.';
+      } else {
+        res.className = 'attack-result safe';
+        res.textContent = 'Not cracked. ' + r.tries.toLocaleString('en-US') + ' common guesses did not match.';
+      }
+      $('pwSpeed').textContent = 'This browser tab tested roughly ' + speed.toLocaleString('en-US') + ' hashes a second. One GPU running Hashcat tests around 100 billion a second against a fast hash, so a weak password falls almost instantly.';
+    }
+    run();
+  })();
+})();
+
+</script>
+</body>
+</html>
